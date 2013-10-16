@@ -13,7 +13,7 @@ public final class ReturnStatement extends AbstractStatement {
 	
 	@Override
 	public void write(Writer writer) {
-		writer.write("return ").write(value).println(";");
+		writer.write("return ").write(value).write(";");
 	}
 
 }

@@ -13,7 +13,7 @@ public final class ExpressionStatement extends AbstractStatement {
 	
 	@Override
 	public void write(Writer writer) {
-		writer.write(expression).println(";");
+		writer.write(expression).write(";");
 	}
 
 }

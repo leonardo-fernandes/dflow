@@ -12,6 +12,8 @@ public class Type implements Writeable {
 	private final String namespace;
 	private final String name;
 	
+	private boolean ommitPackage = false;
+	
 	public Type(String namespace, String name) {
 		this.namespace = namespace;
 		this.name = name;
@@ -37,8 +39,27 @@ public class Type implements Writeable {
 		return name;
 	}
 	
+	public void ommitPackage() {
+		this.ommitPackage = true;
+	}
+	
+	private boolean canOmmitPackage() {
+		// TODO: simplification of type references by importing types and packages
+		return ommitPackage ||
+			getNamespace() == null ||
+			getNamespace().equals("java.lang");
+	}
+	
 	public String getFullName() {
 		if (getNamespace() == null) {
+			return getName();
+		} else {
+			return getNamespace() + "." + getName();
+		}
+	}
+	
+	public String getSimplifiedName() {
+		if (canOmmitPackage()) {
 			return getName();
 		} else {
 			return getNamespace() + "." + getName();
@@ -52,11 +73,6 @@ public class Type implements Writeable {
 
 	@Override
 	public void write(Writer writer) {
-		if (getNamespace() == null) {
-			writer.write(getName() + " ");
-		} else {
-			// TODO: simplification of type references by importing types and packages
-			writer.write(getNamespace() + "." + getName() + " ");
-		}
+		writer.write(getSimplifiedName() + " ");
 	}
 }

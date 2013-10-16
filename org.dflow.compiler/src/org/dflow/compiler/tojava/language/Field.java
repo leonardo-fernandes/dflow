@@ -71,8 +71,7 @@ public class Field implements Writeable, Annotated {
 		writer.write(visibility)
 			.write(scope)
 			.write(getType())
-			.write(getName() + ";")
-			.println();
+			.write(getName() + ";");
 	}
 
 }

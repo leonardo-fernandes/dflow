@@ -94,26 +94,30 @@ public class Class implements CompilationUnit, Annotated {
 			.write("class " + getName() + " {")
 			.println();
 		writer.indent();
-		
 		writer.println();
 		
-		for (Field f : fields) {
-			f.write(writer);
-		}
-		
-		writer.println();
-		
-		for (Constructor c : constructors) {
-			c.write(writer);
+		if (!fields.isEmpty()) {
+			for (Field f : fields) {
+				writer.write(f).println();
+			}
 			writer.println();
 		}
-		
-		for (Method m : methods) {
-			m.write(writer);
-			writer.println();
+
+		if (!constructors.isEmpty()) {
+			for (Constructor c : constructors) {
+				writer.write(c).println();
+				writer.println();
+			}
+		}
+
+		if (!methods.isEmpty()) {
+			for (Method m : methods) {
+				writer.write(m).println();
+				writer.println();
+			}
 		}
 		
 		writer.unindent();
-		writer.println("}");
+		writer.write("}");
 	}
 }

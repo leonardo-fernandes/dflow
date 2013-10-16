@@ -131,7 +131,7 @@ public class Method implements Writeable, Annotated {
 		getBody().write(writer);
 		
 		writer.unindent();
-		writer.println("}");
+		writer.write("}");
 		
 	}
 

@@ -20,6 +20,9 @@ public class Writer {
 	}
 	
 	public void unindent() {
+		if (indentation == 0) {
+			throw new IllegalStateException("Cannot unindent");
+		}
 		indentation--;
 	}
 	
@@ -72,6 +75,9 @@ public class Writer {
 	public void close() throws IOException {
 		if (writer.checkError()) {
 			throw new IndentingWriterException();
+		}
+		if (indentation != 0) {
+			throw new IllegalStateException("Indentation level was expected to be 0, but it's still " + indentation + " - did you forgot to unindent()?");
 		}
 		writer.close();
 	}

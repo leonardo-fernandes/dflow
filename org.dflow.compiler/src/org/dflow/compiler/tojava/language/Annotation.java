@@ -18,8 +18,7 @@ public class Annotation implements Writeable {
 	
 	@Override
 	public void write(Writer writer) {
-		// TODO: simplification of type references by importing types and packages
-		writer.write("@").write(type.getFullName());
+		writer.write("@").write(type.getSimplifiedName());
 	}
 	
 }

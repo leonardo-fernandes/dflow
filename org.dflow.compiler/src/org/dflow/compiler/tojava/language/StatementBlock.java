@@ -18,7 +18,9 @@ public class StatementBlock implements Writeable {
 	
 	@Override
 	public void write(Writer writer) {
-		writer.write(statements);
+		for (AbstractStatement s : statements) {
+			writer.write(s).println();
+		}
 	}
 
 }

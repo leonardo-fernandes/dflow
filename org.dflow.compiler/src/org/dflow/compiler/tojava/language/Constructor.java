@@ -74,7 +74,7 @@ public class Constructor implements Writeable, Annotated {
 		getBody().write(writer);
 		
 		writer.unindent();
-		writer.println("}");
+		writer.write("}");
 	}
 
 }
