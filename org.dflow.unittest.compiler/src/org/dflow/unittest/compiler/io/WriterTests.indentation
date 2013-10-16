@@ -1,0 +1,7 @@
+public void method() { // this will appear in the same line
+    if (true) {
+        System.out.println("must execute");
+    } else {
+        // never reachable
+    }
+}

@@ -1,0 +1,6 @@
+package org.dflow.unittest;
+
+@Deprecated
+public class MyDeprecatedTest {
+
+}

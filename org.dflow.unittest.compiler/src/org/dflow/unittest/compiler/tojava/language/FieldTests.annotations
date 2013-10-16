@@ -1,0 +1,2 @@
+@Deprecated
+private int myField;
