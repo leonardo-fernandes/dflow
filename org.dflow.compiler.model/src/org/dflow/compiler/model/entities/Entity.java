@@ -20,6 +20,10 @@ public class Entity {
 		this.name = name;
 	}
 
+	public void addAttribute(Attribute attribute) {
+		attributes.add(attribute);
+	}
+	
 	public Iterable<Attribute> getAttributes() {
 		return attributes;
 	}
