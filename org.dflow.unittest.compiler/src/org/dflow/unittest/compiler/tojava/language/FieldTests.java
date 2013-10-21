@@ -7,10 +7,10 @@ import org.dflow.compiler.tojava.language.Field;
 import org.dflow.compiler.tojava.language.ScopeModifier;
 import org.dflow.compiler.tojava.language.Type;
 import org.dflow.compiler.tojava.language.VisibilityModifier;
-import org.dflow.unittest.compiler.io.AbstractWriterTest;
+import org.dflow.unittest.compiler.io.AbstractWritingTest;
 import org.junit.Test;
 
-public class FieldTests extends AbstractWriterTest {
+public class FieldTests extends AbstractWritingTest {
 	
 	@Test
 	public void write() {

@@ -1,4 +1,5 @@
-package org.dflow.compiler.io;
+package org.dflow.compiler.io.writing;
+
 
 
 public interface Writeable {

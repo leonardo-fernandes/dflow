@@ -1,6 +1,6 @@
 package org.dflow.compiler.tojava.language.statement;
 
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.tojava.language.expression.AbstractExpression;
 
 public final class ExpressionStatement extends AbstractStatement {

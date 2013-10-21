@@ -14,10 +14,10 @@ import org.dflow.compiler.tojava.language.expression.ArgumentReference;
 import org.dflow.compiler.tojava.language.expression.Assignment;
 import org.dflow.compiler.tojava.language.expression.FieldReference;
 import org.dflow.compiler.tojava.language.statement.ReturnStatement;
-import org.dflow.unittest.compiler.io.AbstractWriterTest;
+import org.dflow.unittest.compiler.io.AbstractWritingTest;
 import org.junit.Test;
 
-public class ClassTests extends AbstractWriterTest {
+public class ClassTests extends AbstractWritingTest {
 	
 	@Test
 	public void write() {

@@ -1,10 +1,14 @@
 package org.dflow.compiler.tojava;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.Reader;
 
 import org.dflow.compiler.io.SourceWorkspace;
 import org.dflow.compiler.io.TargetWorkspace;
+import org.dflow.compiler.io.templating.Template;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.model.Application;
 import org.dflow.compiler.parser.ApplicationParser;
 import org.dflow.compiler.tojava.exceptions.ApplicationNotFoundException;
@@ -50,7 +54,29 @@ class ApplicationCompiler {
 		Reader r = source.open(visitor.applicationFile);
 		ApplicationParser parser = new ApplicationParser($package, r);
 		parser.parse();
-		return parser.getApplication();
+		Application application = parser.getApplication();
+		
+		compileEclipseProject(application);
+		return application;
+	}
+
+	private void compileEclipseProject(Application application) throws IOException {
+		Template eclipseClasspath = new Template(new InputStreamReader(this.getClass().getResourceAsStream("templates/eclipse.classpath")));
+		Writer classpathWriter = target.openConfiguration(".classpath");
+		try {
+			classpathWriter.write(eclipseClasspath);
+		} finally {
+			classpathWriter.close();
+		}
+		
+		Template eclipseProject = new Template(new InputStreamReader(this.getClass().getResourceAsStream("templates/eclipse.project")));
+		eclipseProject.replace("application.name", application.getName());
+		Writer projectWriter = target.openConfiguration(".project");
+		try {
+			projectWriter.write(eclipseProject);
+		} finally {
+			projectWriter.close();
+		}
 	}
 
 }

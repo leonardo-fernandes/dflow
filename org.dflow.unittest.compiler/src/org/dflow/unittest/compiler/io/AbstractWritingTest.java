@@ -7,11 +7,11 @@ import java.io.PrintWriter;
 import java.io.Reader;
 import java.io.StringWriter;
 
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writer;
 import org.junit.After;
 import org.junit.Before;
 
-public abstract class AbstractWriterTest {
+public abstract class AbstractWritingTest {
 	
 	private StringWriter sw;
 	protected Writer writer;
@@ -61,7 +61,7 @@ public abstract class AbstractWriterTest {
 	}
 	
 	/**
-	 * Retrieves the text written by {@link AbstractWriterTest#writer}.
+	 * Retrieves the text written by {@link AbstractWritingTest#writer}.
 	 * @return The text that was written, since the beginning of the test.
 	 */
 	protected String written() {

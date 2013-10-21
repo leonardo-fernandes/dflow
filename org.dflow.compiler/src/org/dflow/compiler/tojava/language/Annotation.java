@@ -1,7 +1,7 @@
 package org.dflow.compiler.tojava.language;
 
-import org.dflow.compiler.io.Writer;
-import org.dflow.compiler.io.Writeable;
+import org.dflow.compiler.io.writing.Writeable;
+import org.dflow.compiler.io.writing.Writer;
 
 public class Annotation implements Writeable {
 	

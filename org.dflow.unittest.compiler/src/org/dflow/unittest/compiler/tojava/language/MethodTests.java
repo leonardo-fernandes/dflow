@@ -11,10 +11,10 @@ import org.dflow.compiler.tojava.language.VisibilityModifier;
 import org.dflow.compiler.tojava.language.expression.ArgumentReference;
 import org.dflow.compiler.tojava.language.expression.BinaryArithmeticOperation;
 import org.dflow.compiler.tojava.language.statement.ReturnStatement;
-import org.dflow.unittest.compiler.io.AbstractWriterTest;
+import org.dflow.unittest.compiler.io.AbstractWritingTest;
 import org.junit.Test;
 
-public class MethodTests extends AbstractWriterTest {
+public class MethodTests extends AbstractWritingTest {
 	
 	@Test
 	public void write() {

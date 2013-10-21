@@ -3,8 +3,8 @@ package org.dflow.compiler.tojava.language;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dflow.compiler.io.Writeable;
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writeable;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.tojava.language.expression.ArgumentReference;
 import org.dflow.compiler.tojava.language.expression.Assignment;
 import org.dflow.compiler.tojava.language.expression.FieldReference;

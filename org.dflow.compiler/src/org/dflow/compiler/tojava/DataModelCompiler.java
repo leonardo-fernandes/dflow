@@ -5,9 +5,10 @@ import java.io.IOException;
 
 import org.dflow.compiler.io.SourceWorkspace;
 import org.dflow.compiler.io.TargetWorkspace;
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.model.Application;
 import org.dflow.compiler.model.datamodel.Attribute;
+import org.dflow.compiler.model.datamodel.DataModel;
 import org.dflow.compiler.model.datamodel.Entity;
 import org.dflow.compiler.parser.EntityParser;
 import org.dflow.compiler.parser.exceptions.ParseException;
@@ -32,7 +33,7 @@ class DataModelCompiler {
 		this.target = target;
 	}
 
-	public void compile() throws IOException, ParseException, CompilationException {
+	public DataModel compile() throws IOException, ParseException, CompilationException {
 		File dataModel = new File(application.getPackageDirectory(), DATAMODEL_PACKAGE);
 
 		SourceWorkspace.Visitor visitor = new SourceWorkspace.Visitor(source, dataModel) {
@@ -49,6 +50,8 @@ class DataModelCompiler {
 		for (Entity e : application.getDataModel().getEntities()) {
 			compile(e);
 		}
+		
+		return application.getDataModel();
 	}
 
 	private void compile(Entity e) throws IOException {
@@ -65,11 +68,20 @@ class DataModelCompiler {
 		Class c = new Class(e.getPackage(), e.getName());
 		c.addAnnotation(new Annotation(new Type(javax.persistence.Entity.class)));
 		
+		Field id = new Field(Type.INT, "id");
+		id.addAnnotation(new Annotation(new Type(javax.persistence.Id.class)));
+		c.addField(id);
+		c.addMethod(Method.getter(id)).addMethod(Method.setter(id));
+		
+		Field version = new Field(Type.INT, "version");
+		version.addAnnotation(new Annotation(new Type(javax.persistence.Version.class)));
+		c.addField(version);
+		c.addMethod(Method.getter(version)).addMethod(Method.setter(version));
+		
 		for (Attribute a : e.getAttributes()) {
 			Field f = new Field(new Type(a.getType()), a.getName());
 			c.addField(f);
-			c.addMethod(Method.getter(f));
-			c.addMethod(Method.setter(f));
+			c.addMethod(Method.getter(f)).addMethod(Method.setter(f));
 		}
 
 		return c;

@@ -1,4 +1,4 @@
-package org.dflow.unittest.compiler.io;
+package org.dflow.unittest.compiler.io.writing;
 
 import static org.junit.Assert.assertEquals;
 
@@ -8,11 +8,12 @@ import java.io.StringWriter;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dflow.compiler.io.Writeable;
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writeable;
+import org.dflow.compiler.io.writing.Writer;
+import org.dflow.unittest.compiler.io.AbstractWritingTest;
 import org.junit.Test;
 
-public class WriterTests extends AbstractWriterTest {
+public class WriterTests extends AbstractWritingTest {
 	
 	@Test
 	public void writeString() {

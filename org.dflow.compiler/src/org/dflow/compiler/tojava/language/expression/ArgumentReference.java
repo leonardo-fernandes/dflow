@@ -1,6 +1,6 @@
 package org.dflow.compiler.tojava.language.expression;
 
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.tojava.language.Argument;
 
 public class ArgumentReference extends AbstractExpression implements LValue {

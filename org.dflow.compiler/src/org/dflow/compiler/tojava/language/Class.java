@@ -1,15 +1,12 @@
 package org.dflow.compiler.tojava.language;
 
-import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-import org.dflow.compiler.io.CompilationUnit;
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writeable;
+import org.dflow.compiler.io.writing.Writer;
 
-public class Class implements CompilationUnit, Annotated {
-	
-	public static final String JAVA_FILE_EXTENSION = ".java";
+public class Class implements Writeable, Annotated {
 	
 	public static final Class UNKNOWN = new Class(VisibilityModifier.PRIVATE, "UNKNOWN", "UNKNOWN");
 	
@@ -74,11 +71,6 @@ public class Class implements CompilationUnit, Annotated {
 		this.methods.add(method);
 		method.setDeclaringClass(this);
 		return this;
-	}
-	
-	@Override
-	public File getFile() {
-		return new File(getPackage(), getName() + JAVA_FILE_EXTENSION);
 	}
 	
 	@Override

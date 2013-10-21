@@ -1,6 +1,6 @@
 package org.dflow.compiler.tojava.language.expression;
 
-import org.dflow.compiler.io.Writer;
+import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.tojava.language.Field;
 
 public final class FieldReference extends AbstractFieldReference {
