@@ -16,7 +16,7 @@ public class Class implements CompilationUnit, Annotated {
 	public static final VisibilityModifier DEFAULT_VISIBILITY = VisibilityModifier.PUBLIC;
 	
 	private final VisibilityModifier visibility;
-	private final String namespace;
+	private final String $package;
 	private final String name;
 	
 	private final List<Annotation> annotations = new LinkedList<>();
@@ -25,26 +25,26 @@ public class Class implements CompilationUnit, Annotated {
 	private final List<Constructor> constructors = new LinkedList<>();
 	private final List<Method> methods = new LinkedList<>();
 	
-	public Class(VisibilityModifier visibility, String namespace, String name) {
+	public Class(VisibilityModifier visibility, String $package, String name) {
 		this.visibility = visibility;
-		this.namespace = namespace;
+		this.$package = $package;
 		this.name = name;
 	}
 	
-	public Class(String namespace, String name) {
-		this(DEFAULT_VISIBILITY, namespace, name);
+	public Class(String $package, String name) {
+		this(DEFAULT_VISIBILITY, $package, name);
 	}
 	
 	public String getName() {
 		return name;
 	}
 
-	public String getNamespace() {
-		return namespace;
+	public String getPackage() {
+		return $package;
 	}
 	
 	public String getFullName() {
-		return getNamespace() + "." + getName();
+		return getPackage() + "." + getName();
 	}
 	
 	@Override
@@ -78,12 +78,12 @@ public class Class implements CompilationUnit, Annotated {
 	
 	@Override
 	public File getFile() {
-		return new File(getNamespace(), getName() + JAVA_FILE_EXTENSION);
+		return new File(getPackage(), getName() + JAVA_FILE_EXTENSION);
 	}
 	
 	@Override
 	public void write(Writer writer) {
-		writer.println("package " + getNamespace() + ";");
+		writer.println("package " + getPackage() + ";");
 		writer.println();
 
 		for (Annotation a : annotations) {

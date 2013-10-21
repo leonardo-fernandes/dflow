@@ -1,4 +1,4 @@
-package org.dflow.compiler.model.entities;
+package org.dflow.compiler.model.datamodel;
 
 public class Attribute {
 	

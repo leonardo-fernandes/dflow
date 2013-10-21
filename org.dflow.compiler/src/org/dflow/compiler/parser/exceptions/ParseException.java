@@ -1,4 +1,4 @@
-package org.dflow.compiler.parser;
+package org.dflow.compiler.parser.exceptions;
 
 public class ParseException extends Exception {
 	

@@ -9,13 +9,13 @@ public class Type implements Writeable {
 	public static final Type INT = new Type("int");
 	public static final Type STRING = new Type(java.lang.String.class);
 	
-	private final String namespace;
+	private final String $package;
 	private final String name;
 	
 	private boolean ommitPackage = false;
 	
-	public Type(String namespace, String name) {
-		this.namespace = namespace;
+	public Type(String $package, String name) {
+		this.$package = $package;
 		this.name = name;
 	}
 	
@@ -28,11 +28,11 @@ public class Type implements Writeable {
 	}
 	
 	public Type(Class clazz) {
-		this(clazz.getNamespace(), clazz.getName());
+		this(clazz.getPackage(), clazz.getName());
 	}
 	
-	public String getNamespace() {
-		return namespace;
+	public String getPackage() {
+		return $package;
 	}
 	
 	public String getName() {
@@ -46,15 +46,15 @@ public class Type implements Writeable {
 	private boolean canOmmitPackage() {
 		// TODO: simplification of type references by importing types and packages
 		return ommitPackage ||
-			getNamespace() == null ||
-			getNamespace().equals("java.lang");
+			getPackage() == null ||
+			getPackage().equals("java.lang");
 	}
 	
 	public String getFullName() {
-		if (getNamespace() == null) {
+		if (getPackage() == null) {
 			return getName();
 		} else {
-			return getNamespace() + "." + getName();
+			return getPackage() + "." + getName();
 		}
 	}
 	
@@ -62,7 +62,7 @@ public class Type implements Writeable {
 		if (canOmmitPackage()) {
 			return getName();
 		} else {
-			return getNamespace() + "." + getName();
+			return getPackage() + "." + getName();
 		}
 	}
 	

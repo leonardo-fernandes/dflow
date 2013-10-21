@@ -17,19 +17,19 @@ package org.dflow.compiler.parser;
 
 
 
-//#line 2 "dflow.dml.y"
+//#line 2 "Entity.y"
 import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
-import org.dflow.compiler.model.*;
-import org.dflow.compiler.model.entities.*;
-//#line 24 "DataModelParser.java"
+import org.dflow.compiler.parser.exceptions.*;
+import org.dflow.compiler.model.datamodel.*;
+//#line 24 "EntityParser.java"
 
 
 
 
-public class DataModelParser
+public class EntityParser
 {
 
 boolean yydebug;        //do I want debug output?
@@ -106,34 +106,34 @@ int i;
 
 
 //########## SEMANTIC VALUES ##########
-//public class DataModelParserVal is defined in DataModelParserVal.java
+//public class EntityParserVal is defined in EntityParserVal.java
 
 
 String   yytext;//user variable to return contextual strings
-DataModelParserVal yyval; //used to return semantic vals from action routines
-DataModelParserVal yylval;//the 'lval' (result) I got from yylex()
-DataModelParserVal valstk[];
+EntityParserVal yyval; //used to return semantic vals from action routines
+EntityParserVal yylval;//the 'lval' (result) I got from yylex()
+EntityParserVal valstk[];
 int valptr;
 //###############################################################
 // methods: value stack push,pop,drop,peek.
 //###############################################################
 void val_init()
 {
-  valstk=new DataModelParserVal[YYSTACKSIZE];
-  yyval=new DataModelParserVal();
-  yylval=new DataModelParserVal();
+  valstk=new EntityParserVal[YYSTACKSIZE];
+  yyval=new EntityParserVal();
+  yylval=new EntityParserVal();
   valptr=-1;
 }
-void val_push(DataModelParserVal val)
+void val_push(EntityParserVal val)
 {
   if (valptr>=YYSTACKSIZE)
     return;
   valstk[++valptr]=val;
 }
-DataModelParserVal val_pop()
+EntityParserVal val_pop()
 {
   if (valptr<0)
-    return new DataModelParserVal();
+    return new EntityParserVal();
   return valstk[valptr--];
 }
 void val_drop(int cnt)
@@ -144,17 +144,17 @@ int ptr;
     return;
   valptr = ptr;
 }
-DataModelParserVal val_peek(int relative)
+EntityParserVal val_peek(int relative)
 {
 int ptr;
   ptr=valptr-relative;
   if (ptr<0)
-    return new DataModelParserVal();
+    return new EntityParserVal();
   return valstk[ptr];
 }
-final DataModelParserVal dup_yyval(DataModelParserVal val)
+final EntityParserVal dup_yyval(EntityParserVal val)
 {
-  DataModelParserVal dup = new DataModelParserVal();
+  EntityParserVal dup = new EntityParserVal();
   dup.ival = val.ival;
   dup.dval = val.dval;
   dup.sval = val.sval;
@@ -168,47 +168,47 @@ public final static short ENTITY=259;
 public final static short WORD=260;
 public final static short YYERRCODE=256;
 final static short yylhs[] = {                           -1,
-    0,    1,    4,    4,    2,    3,    3,    5,    6,
+    0,    1,    4,    4,    2,    3,    3,    5,    6,    6,
 };
 final static short yylen[] = {                            2,
-    5,    3,    1,    3,    3,    0,    2,    3,    1,
+    5,    3,    1,    3,    3,    0,    2,    3,    1,    3,
 };
 final static short yydefred[] = {                         0,
     0,    0,    0,    3,    0,    0,    0,    2,    0,    0,
-    0,    4,    5,    9,    0,    0,    0,    1,    7,    0,
-    8,
+    0,    4,    5,    0,    0,    0,    0,    0,    1,    7,
+    0,   10,    8,
 };
 final static short yydgoto[] = {                          2,
     3,    7,   15,    5,   16,   17,
 };
 final static short yysindex[] = {                      -256,
  -258,    0, -255,    0,  -46, -254, -119,    0, -253, -252,
- -251,    0,    0,    0, -115, -251, -249,    0,    0,  -53,
-    0,
+ -251,    0,    0,  -85, -115, -251, -249,  -81,    0,    0,
+  -45,    0,    0,
 };
 final static short yyrindex[] = {                         0,
     0,    0,    0,    0,    0,    0,    0,    0,    0,    0,
- -113,    0,    0,    0,    0, -113,    0,    0,    0,    0,
-    0,
+ -110,    0,    0, -244,    0, -110,    0,    0,    0,    0,
+    0,    0,    0,
 };
 final static short yygindex[] = {                         0,
-    0,    0,   -2,    0,    0,    0,
+    0,    0,    1,    0,    0,    0,
 };
-final static int YYTABLESIZE=14;
+final static int YYTABLESIZE=17;
 static short yytable[];
 static { yytable();}
 static void yytable(){
 yytable = new short[]{                          9,
-    1,    4,    6,   11,   10,   21,   12,   13,   14,   18,
-   20,    6,    8,   19,
+    1,    4,    6,   11,   10,   18,   12,   13,   14,   19,
+   21,   22,    8,   23,    6,    9,   20,
 };
 }
 static short yycheck[];
 static { yycheck(); }
 static void yycheck() {
 yycheck = new short[] {                         46,
-  257,  260,  258,  123,  259,   59,  260,  260,  260,  125,
-  260,  125,   59,   16,
+  257,  260,  258,  123,  259,   91,  260,  260,  260,  125,
+  260,   93,   59,   59,  125,  260,   16,
 };
 }
 final static short YYFINAL=2;
@@ -219,18 +219,18 @@ null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 "'.'",null,null,null,null,null,null,null,null,null,null,null,null,"';'",null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,"'['",
+null,"']'",null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,"'{'",
-null,"'}'",null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+"'{'",null,"'}'",null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
 null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
-null,null,null,null,null,null,"PACKAGE","PUBLIC","ENTITY","WORD",
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,
+null,null,null,null,null,null,null,"PACKAGE","PUBLIC","ENTITY","WORD",
 };
 final static String yyrule[] = {
 "$accept : entity_definition",
@@ -243,15 +243,26 @@ final static String yyrule[] = {
 "entity_contents : attribute_definition entity_contents",
 "attribute_definition : attribute_type WORD ';'",
 "attribute_type : WORD",
+"attribute_type : WORD '[' ']'",
 };
 
-//#line 33 "dflow.dml.y"
+//#line 34 "Entity.y"
 
 private final StreamTokenizer st;
+private String packageName;
 private Entity entity;
 
-public DataModelParser(Reader reader) {
+public EntityParser(Reader reader) {
 	this.st = new StreamTokenizer(reader);
+}
+
+public Entity getEntity() {
+	return entity;
+}
+
+public Entity parse() throws IOException, ParseException {
+	yyparse();
+	return entity;
 }
 
 private int yylex() throws IOException {
@@ -268,7 +279,7 @@ private int yylex() throws IOException {
 		case "entity":
 			return ENTITY;
 		default:
-			yylval = new DataModelParserVal(st.sval);
+			yylval = new EntityParserVal(st.sval);
 			return WORD;
 		}
 	} else {
@@ -279,7 +290,7 @@ private int yylex() throws IOException {
 private void yyerror(String s) throws ParseException {
 	throw new ParseException(st.lineno());
 }
-//#line 210 "DataModelParser.java"
+//#line 221 "EntityParser.java"
 //###############################################################
 // method: yylexdebug : check lexer state
 //###############################################################
@@ -434,15 +445,27 @@ boolean doaction;
     switch(yyn)
       {
 //########## USER-SUPPLIED ACTIONS ##########
+case 2:
+//#line 18 "Entity.y"
+{ this.packageName = val_peek(1).sval; }
+break;
+case 4:
+//#line 21 "Entity.y"
+{ yyval.sval = val_peek(2).sval + '.' + val_peek(0).sval; }
+break;
 case 5:
-//#line 23 "dflow.dml.y"
-{ this.entity = new Entity(val_peek(0).sval); }
+//#line 23 "Entity.y"
+{ this.entity = new Entity(packageName, val_peek(0).sval); }
 break;
 case 8:
-//#line 28 "dflow.dml.y"
+//#line 28 "Entity.y"
 { this.entity.addAttribute(new Attribute(val_peek(1).sval, val_peek(2).sval)); }
 break;
-//#line 367 "DataModelParser.java"
+case 10:
+//#line 31 "Entity.y"
+{ yyval.sval = val_peek(2).sval + '[' + ']'; }
+break;
+//#line 390 "EntityParser.java"
 //########## END OF USER-SUPPLIED ACTIONS ##########
     }//switch
     //#### Now let's reduce... ####

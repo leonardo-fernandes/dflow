@@ -1,0 +1,6 @@
+package org.dflow.samples.documents.datamodel;
+
+public entity Document {
+	String filename;
+	byte[] binaryContents;
+}

@@ -1,0 +1,5 @@
+package org.dflow.samples.documents.application;
+
+public application Documents {
+
+}

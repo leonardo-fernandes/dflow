@@ -1,33 +1,91 @@
 package org.dflow.compiler.io;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.InputStreamReader;
+import java.io.IOException;
 import java.io.Reader;
 
-public class SourceWorkspace {
+import org.dflow.compiler.parser.exceptions.ParseException;
+import org.dflow.compiler.tojava.exceptions.CompilationException;
+
+public abstract class SourceWorkspace {
 	
-	private final File root;
+	public static final String DFLOW_EXTENSION = ".dflow";
 	
-	public SourceWorkspace(File root) {
-		this.root = root;
-	}
+	public abstract File[] list();
+	public abstract File[] list(File directory);
 	
-	public File[] list() {
-		return list(root);
-	}
+	public abstract String getRelativePath(File file);
+	public abstract File getAbsoluteFile(String path);
+
+	public abstract Reader open(File file) throws IOException;
+
 	
-	public File[] list(File directory) {
-		return directory.listFiles();
-	}
-	
-	public Reader open(File file) {
-		try {
-			return new InputStreamReader(new FileInputStream(file));
-		} catch (FileNotFoundException fnf) {
-			throw new IllegalArgumentException(fnf);
+	public static abstract class Visitor {
+		
+		private final SourceWorkspace source;
+		private final File parent;
+		
+		public Visitor(SourceWorkspace source) {
+			this(source, null);
 		}
+		
+		public Visitor(SourceWorkspace source, File parent) {
+			this.source = source;
+			this.parent = parent == null? null : source.getAbsoluteFile(parent.getPath());
+		}
+		
+		public enum Action {
+			CONTINUE,
+			STOP
+		}
+		
+		public final void visit() throws IOException, ParseException, CompilationException {
+			if (parent == null) {
+				visitRoot();
+			} else {
+				visitChilds(parent);
+			}
+		}
+		
+		private void visitRoot() throws IOException, ParseException, CompilationException {
+			for (File f : source.list()) {
+				if (!f.isDirectory()) {
+					if (visit(f) == Action.STOP) {
+						return;
+					}
+				}
+			}
+
+			for (File f : source.list()) {
+				if (f.isDirectory()) {
+					if (visitChilds(f) == Action.STOP) {
+						return;
+					}
+				}
+			}
+		}
+
+		private Action visitChilds(File file) throws IOException, ParseException, CompilationException {
+			for (File f : source.list(file)) {
+				if (!f.isDirectory()) {
+					if (visit(f) == Action.STOP) {
+						return Action.STOP;
+					}
+				}
+			}
+
+			for (File f : source.list(file)) {
+				if (f.isDirectory()) {
+					if (visitChilds(f) == Action.STOP) {
+						return Action.STOP;
+					}
+				}
+			}
+			
+			return Action.CONTINUE;
+		}
+
+		protected abstract Action visit(File file) throws IOException, ParseException, CompilationException;
 	}
 
 }

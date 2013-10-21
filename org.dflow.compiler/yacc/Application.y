@@ -3,39 +3,44 @@ import java.io.Reader;
 import java.io.StreamTokenizer;
 import java.io.IOException;
 
+import org.dflow.compiler.parser.exceptions.*;
 import org.dflow.compiler.model.*;
-import org.dflow.compiler.model.entities.*;
 %}
 
-%token PACKAGE PUBLIC ENTITY
+%token PACKAGE PUBLIC APPLICATION
 %token WORD
-%start entity_definition
+%start application_definition
 
 %%
 
-entity_definition : package_declaration entity_signature '{' entity_contents '}' ;
+application_definition : package_declaration application_signature '{' application_contents '}' ;
 
 package_declaration : PACKAGE package_name ';' ;
 
 package_name : WORD
              | package_name '.' WORD ;
 
-entity_signature : PUBLIC ENTITY WORD { this.entity = new Entity($3.sval); } ;
+application_signature : PUBLIC APPLICATION WORD { this.application = new Application($package, $3.sval); } ;
 
-entity_contents : /* empty */
-                | attribute_definition entity_contents ;
-
-attribute_definition : attribute_type WORD ';' { this.entity.addAttribute(new Attribute($2.sval, $1.sval)); } ;
-
-attribute_type : WORD ;
+application_contents : /* empty */ ;
 
 %%
 
 private final StreamTokenizer st;
-private Entity entity;
+private final String $package;
+private Application application;
 
-public DataModelParser(Reader reader) {
+public ApplicationParser(String $package, Reader reader) {
+	this.$package = $package;
 	this.st = new StreamTokenizer(reader);
+}
+
+public Application getApplication() {
+	return application;
+}
+
+public void parse() throws IOException, ParseException {
+	yyparse();
 }
 
 private int yylex() throws IOException {
@@ -49,10 +54,10 @@ private int yylex() throws IOException {
 			return PACKAGE;
 		case "public":
 			return PUBLIC;
-		case "entity":
-			return ENTITY;
+		case "application":
+			return APPLICATION;
 		default:
-			yylval = new DataModelParserVal(st.sval);
+			yylval = new ApplicationParserVal(st.sval);
 			return WORD;
 		}
 	} else {
