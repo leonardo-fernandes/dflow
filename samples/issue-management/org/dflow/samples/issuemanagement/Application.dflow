@@ -1,0 +1,4 @@
+package org.dflow.samples.issuemanagement;
+
+public application issue-management {
+}

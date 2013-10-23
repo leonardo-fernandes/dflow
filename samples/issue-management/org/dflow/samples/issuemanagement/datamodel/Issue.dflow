@@ -1,0 +1,34 @@
+package org.dflow.samples.issuemanagement.datamodel;
+
+import java.util.Collection;
+import java.util.Date;
+
+public entity Issue {
+    String shortDescription;
+    String longDescription;
+
+    Collection<Attachment> attachments;
+
+    Priority priority;
+    Status status;
+
+    Date submitDate;
+    Date deadline;
+
+    Date discardDate;
+    String discardReason;
+
+    public enum Priority {
+        High, Normal, Low;
+    }
+
+    public enum Status {
+        Submitted, Discarded, Approved, OpenedByDev, ClosedByDev, OpenedByQA, ClosedByQA;
+    }
+
+    public entity Attachment {
+        String filename;
+        byte[] binary;
+    }
+
+}
