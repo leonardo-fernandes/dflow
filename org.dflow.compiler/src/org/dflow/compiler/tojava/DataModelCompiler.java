@@ -12,8 +12,8 @@ import org.dflow.compiler.model.datamodel.DataModel;
 import org.dflow.compiler.model.datamodel.Entity;
 import org.dflow.compiler.model.enums.Enumerate;
 import org.dflow.compiler.model.types.TypeProvider;
-import org.dflow.compiler.parser.DataModelLexer;
 import org.dflow.compiler.parser.DataModelParser;
+import org.dflow.compiler.parser.DflowLexer;
 import org.dflow.compiler.parser.ast.DflowFile;
 import org.dflow.compiler.parser.ast.Node;
 import org.dflow.compiler.semantic.CompilationContext;
@@ -114,7 +114,7 @@ class DataModelCompiler {
 		
 		@Override
 		protected Action visit(File file) throws IOException {
-			DataModelParser parser = new DataModelParser(new DataModelLexer(source.open(file)), file);
+			DataModelParser parser = new DataModelParser(new DflowLexer(source.open(file), file), file);
 			parser.parse();
 			context.addParsedFile(parser.getParsedFile());
 			return Action.CONTINUE;

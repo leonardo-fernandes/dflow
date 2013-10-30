@@ -1,5 +1,6 @@
 package org.dflow.compiler.tojava;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -9,8 +10,8 @@ import org.dflow.compiler.io.TargetWorkspace;
 import org.dflow.compiler.io.templating.Template;
 import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.model.Application;
-import org.dflow.compiler.parser.ApplicationLexer;
 import org.dflow.compiler.parser.ApplicationParser;
+import org.dflow.compiler.parser.DflowLexer;
 import org.dflow.compiler.parser.ast.DflowApplicationFile;
 import org.dflow.compiler.semantic.CompilationContext;
 
@@ -27,8 +28,9 @@ class ApplicationCompiler {
 	}
 	
 	public Application compile() throws IOException {
-		Reader r = source.open(context.getApplicationFile());
-		ApplicationParser parser = new ApplicationParser(new ApplicationLexer(r), context.getApplicationFile());
+		File f = context.getApplicationFile();
+		Reader r = source.open(f);
+		ApplicationParser parser = new ApplicationParser(new DflowLexer(r, f), f);
 		parser.parse();
 		context.addParsedFile(parser.getParsedFile());
 		
