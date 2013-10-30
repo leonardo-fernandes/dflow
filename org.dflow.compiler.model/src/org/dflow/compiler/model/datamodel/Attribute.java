@@ -1,16 +1,18 @@
 package org.dflow.compiler.model.datamodel;
 
+import org.dflow.compiler.model.types.Type;
+
 public class Attribute {
 	
-	private String type;
+	private Type type;
 	private String name;
 	
-	public Attribute(String name, String type) {
+	public Attribute(String name, Type type) {
 		this.name = name;
 		this.type = type;
 	}
 
-	public String getType() {
+	public Type getType() {
 		return type;
 	}
 

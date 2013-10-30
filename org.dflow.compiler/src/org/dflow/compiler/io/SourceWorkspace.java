@@ -4,9 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.io.Reader;
 
-import org.dflow.compiler.parser.exceptions.ParseException;
-import org.dflow.compiler.tojava.exceptions.CompilationException;
-
 public abstract class SourceWorkspace {
 	
 	public static final String DFLOW_EXTENSION = ".dflow";
@@ -14,9 +11,6 @@ public abstract class SourceWorkspace {
 	public abstract File[] list();
 	public abstract File[] list(File directory);
 	
-	public abstract String getRelativePath(File file);
-	public abstract File getAbsoluteFile(String path);
-
 	public abstract Reader open(File file) throws IOException;
 
 	
@@ -31,7 +25,7 @@ public abstract class SourceWorkspace {
 		
 		public Visitor(SourceWorkspace source, File parent) {
 			this.source = source;
-			this.parent = parent == null? null : source.getAbsoluteFile(parent.getPath());
+			this.parent = parent;
 		}
 		
 		public enum Action {
@@ -39,7 +33,7 @@ public abstract class SourceWorkspace {
 			STOP
 		}
 		
-		public final void visit() throws IOException, ParseException, CompilationException {
+		public final void visit() throws IOException {
 			if (parent == null) {
 				visitRoot();
 			} else {
@@ -47,7 +41,7 @@ public abstract class SourceWorkspace {
 			}
 		}
 		
-		private void visitRoot() throws IOException, ParseException, CompilationException {
+		private void visitRoot() throws IOException {
 			for (File f : source.list()) {
 				if (!f.isDirectory()) {
 					if (visit(f) == Action.STOP) {
@@ -65,7 +59,7 @@ public abstract class SourceWorkspace {
 			}
 		}
 
-		private Action visitChilds(File file) throws IOException, ParseException, CompilationException {
+		private Action visitChilds(File file) throws IOException {
 			for (File f : source.list(file)) {
 				if (!f.isDirectory()) {
 					if (visit(f) == Action.STOP) {
@@ -85,7 +79,7 @@ public abstract class SourceWorkspace {
 			return Action.CONTINUE;
 		}
 
-		protected abstract Action visit(File file) throws IOException, ParseException, CompilationException;
+		protected abstract Action visit(File file) throws IOException;
 	}
 
 }

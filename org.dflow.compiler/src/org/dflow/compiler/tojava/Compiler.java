@@ -6,7 +6,7 @@ import org.dflow.compiler.io.FileSystemSourceWorkspace;
 import org.dflow.compiler.io.FileSystemTargetWorkspace;
 import org.dflow.compiler.io.SourceWorkspace;
 import org.dflow.compiler.io.TargetWorkspace;
-import org.dflow.compiler.model.Application;
+import org.dflow.compiler.semantic.CompilationContext;
 
 public class Compiler {
 
@@ -19,10 +19,12 @@ public class Compiler {
 	}
 	
 	public void compile() throws Exception {
-		ApplicationCompiler applicationCompiler = new ApplicationCompiler(source, target);
-		Application application = applicationCompiler.compile();
+		CompilationContext context = new CompilationContext(source);
 
-		DataModelCompiler datamodel = new DataModelCompiler(application, source, target);
+		ApplicationCompiler applicationCompiler = new ApplicationCompiler(source, target, context);
+		context.setApplication(applicationCompiler.compile());
+
+		DataModelCompiler datamodel = new DataModelCompiler(source, target, context);
 		datamodel.compile();
 	}
 	

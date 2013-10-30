@@ -22,6 +22,9 @@ public class Class implements Writeable, Annotated {
 	private final List<Constructor> constructors = new LinkedList<>();
 	private final List<Method> methods = new LinkedList<>();
 	
+	private final List<Class> nestedClasses = new LinkedList<>();
+	private final List<Enum> nestedEnums = new LinkedList<>();
+	
 	public Class(VisibilityModifier visibility, String $package, String name) {
 		this.visibility = visibility;
 		this.$package = $package;
@@ -50,7 +53,7 @@ public class Class implements Writeable, Annotated {
 	}
 	
 	@Override
-	public Annotated addAnnotation(Annotation annotation) {
+	public Class addAnnotation(Annotation annotation) {
 		this.annotations.add(annotation);
 		return this;
 	}
@@ -75,9 +78,6 @@ public class Class implements Writeable, Annotated {
 	
 	@Override
 	public void write(Writer writer) {
-		writer.println("package " + getPackage() + ";");
-		writer.println();
-
 		for (Annotation a : annotations) {
 			writer.write(a).println();
 		}
@@ -88,28 +88,41 @@ public class Class implements Writeable, Annotated {
 		writer.indent();
 		writer.println();
 		
-		if (!fields.isEmpty()) {
-			for (Field f : fields) {
-				writer.write(f).println();
-			}
+		for (Field f : fields) {
+			writer.write(f).println();
+		}
+		writer.println();
+
+		for (Constructor c : constructors) {
+			writer.write(c).println();
 			writer.println();
 		}
 
-		if (!constructors.isEmpty()) {
-			for (Constructor c : constructors) {
-				writer.write(c).println();
-				writer.println();
-			}
+		for (Method m : methods) {
+			writer.write(m).println();
+			writer.println();
 		}
-
-		if (!methods.isEmpty()) {
-			for (Method m : methods) {
-				writer.write(m).println();
-				writer.println();
-			}
+		writer.println();
+		
+		for (Class c : nestedClasses) {
+			c.write(writer);
+			writer.println();
+		}
+		
+		for (Enum e : nestedEnums) {
+			e.write(writer);
+			writer.println();
 		}
 		
 		writer.unindent();
 		writer.write("}");
+	}
+
+	public void addNested(Class nestedClass) {
+		nestedClasses.add(nestedClass);
+	}
+	
+	public void addNested(Enum nestedEnum) {
+		nestedEnums.add(nestedEnum);
 	}
 }

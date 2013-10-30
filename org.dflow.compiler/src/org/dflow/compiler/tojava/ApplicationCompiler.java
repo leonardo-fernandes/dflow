@@ -1,6 +1,5 @@
 package org.dflow.compiler.tojava;
 
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.Reader;
@@ -10,54 +9,36 @@ import org.dflow.compiler.io.TargetWorkspace;
 import org.dflow.compiler.io.templating.Template;
 import org.dflow.compiler.io.writing.Writer;
 import org.dflow.compiler.model.Application;
+import org.dflow.compiler.parser.ApplicationLexer;
 import org.dflow.compiler.parser.ApplicationParser;
-import org.dflow.compiler.tojava.exceptions.ApplicationNotFoundException;
+import org.dflow.compiler.parser.ast.DflowApplicationFile;
+import org.dflow.compiler.semantic.CompilationContext;
 
 class ApplicationCompiler {
 	
-	private static final String APPLICATION_FILE = "Application" + SourceWorkspace.DFLOW_EXTENSION;
-	
 	private final SourceWorkspace source;
 	private final TargetWorkspace target;
+	private final CompilationContext context;
 	
-	public ApplicationCompiler(SourceWorkspace source, TargetWorkspace target) {
+	public ApplicationCompiler(SourceWorkspace source, TargetWorkspace target, CompilationContext context) {
 		this.source = source;
 		this.target = target;
-	}
-
-	private static final class DiscoverApplicationFileVisitor extends SourceWorkspace.Visitor {
-		private File applicationFile;
-		
-		public DiscoverApplicationFileVisitor(SourceWorkspace source) {
-			super(source);
-		}
-		
-		@Override
-		protected Action visit(File file) {
-			if (file.getName().equals(APPLICATION_FILE)) {
-				this.applicationFile = file;
-				return Action.STOP;
-			} else {
-				return Action.CONTINUE;
-			}
-		}
+		this.context = context;
 	}
 	
-	public Application compile() throws Exception {
-		DiscoverApplicationFileVisitor visitor = new DiscoverApplicationFileVisitor(source);
-		visitor.visit();
-		if (visitor.applicationFile == null) {
-			throw new ApplicationNotFoundException("Could not find the required " + APPLICATION_FILE + " file");
-		}
-
-		String $package = source.getRelativePath(visitor.applicationFile.getParentFile()).replace(File.separatorChar, '.');
-		Reader r = source.open(visitor.applicationFile);
-		ApplicationParser parser = new ApplicationParser($package, r);
+	public Application compile() throws IOException {
+		Reader r = source.open(context.getApplicationFile());
+		ApplicationParser parser = new ApplicationParser(new ApplicationLexer(r), context.getApplicationFile());
 		parser.parse();
-		Application application = parser.getApplication();
+		context.addParsedFile(parser.getParsedFile());
 		
+		Application application = createApplication(parser.getParsedFile());
 		compileEclipseProject(application);
 		return application;
+	}
+
+	private Application createApplication(DflowApplicationFile f) {
+		return new Application(f.getPackage().getName(), f.getApplication().getName());
 	}
 
 	private void compileEclipseProject(Application application) throws IOException {

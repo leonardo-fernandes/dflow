@@ -28,14 +28,4 @@ public class FileSystemSourceWorkspace extends SourceWorkspace {
 	public Reader open(File file) throws FileNotFoundException {
 		return new InputStreamReader(new FileInputStream(file));
 	}
-
-	@Override
-	public String getRelativePath(File file) {
-		return root.toURI().relativize(file.toURI()).getPath();
-	}
-	
-	@Override
-	public File getAbsoluteFile(String path) {
-		return new File(root, path);
-	}
 }

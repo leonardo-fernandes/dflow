@@ -36,24 +36,25 @@ package org.dflow.compiler.parser;
 /* "%code imports" blocks.  */
 
 /* Line 33 of lalr1.java  */
-/* Line 8 of "application.y"  */
+/* Line 8 of "datamodel.y"  */
 
 import org.dflow.compiler.parser.ast.*;
-import org.dflow.compiler.parser.ast.application.*;
+import org.dflow.compiler.parser.ast.datamodel.*;
+import org.dflow.compiler.parser.ast.enumerate.*;
 import org.dflow.compiler.parser.ast.identifiers.*;
 import org.dflow.compiler.parser.ast.typereferences.*;
 
 
 
 /* Line 33 of lalr1.java  */
-/* Line 50 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
+/* Line 51 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
 
 /**
- * A Bison parser, automatically generated from <tt>application.y</tt>.
+ * A Bison parser, automatically generated from <tt>datamodel.y</tt>.
  *
  * @author LALR (1) parser skeleton written by Paolo Bonzini.
  */
-public final class ApplicationParser
+public final class DataModelParser
 {
     /** Version number for the Bison executable that generated this parser.  */
   public static final String bisonVersion = "2.5";
@@ -145,7 +146,7 @@ public final class ApplicationParser
 
   /**
    * Communication interface between the scanner and the Bison-generated
-   * parser <tt>ApplicationParser</tt>.
+   * parser <tt>DataModelParser</tt>.
    */
   public interface Lexer {
     /**
@@ -193,7 +194,7 @@ public final class ApplicationParser
    * Instantiates the Bison-generated parser.
    * @param yylexer The scanner that will supply tokens to the parser.
    */
-  public ApplicationParser (Lexer yylexer, java.io.File file) {
+  public DataModelParser (Lexer yylexer, java.io.File file) {
     this.yylexer = yylexer;
     this.file = file;
 	  
@@ -378,7 +379,7 @@ public final class ApplicationParser
   if (yyn == 2)
     
 /* Line 351 of lalr1.java  */
-/* Line 40 of "application.y"  */
+/* Line 49 of "datamodel.y"  */
     { yyval = new PackageDeclaration(((Identifier)(yystack.valueAt (3-(2))))); };
   break;
     
@@ -387,8 +388,8 @@ public final class ApplicationParser
   if (yyn == 3)
     
 /* Line 351 of lalr1.java  */
-/* Line 42 of "application.y"  */
-    { yyval = new SimpleIdentifier(((String)(yystack.valueAt (1-(1))))); };
+/* Line 51 of "datamodel.y"  */
+    { yyval = new ImportDeclaration.Block(); };
   break;
     
 
@@ -396,8 +397,8 @@ public final class ApplicationParser
   if (yyn == 4)
     
 /* Line 351 of lalr1.java  */
-/* Line 44 of "application.y"  */
-    { this.parsedFile = new DflowApplicationFile(this.file, ((PackageDeclaration)(yystack.valueAt (2-(1)))), ((Application)(yystack.valueAt (2-(2))))); };
+/* Line 52 of "datamodel.y"  */
+    { yyval = ((ImportDeclaration.Block)(yystack.valueAt (2-(1)))).add(((ImportDeclaration)(yystack.valueAt (2-(2))))); };
   break;
     
 
@@ -405,8 +406,8 @@ public final class ApplicationParser
   if (yyn == 5)
     
 /* Line 351 of lalr1.java  */
-/* Line 46 of "application.y"  */
-    { yyval = new Application(((String)(yystack.valueAt (6-(3)))), ((Application.Contents)(yystack.valueAt (6-(5))))); };
+/* Line 54 of "datamodel.y"  */
+    { yyval = new ImportDeclaration(((Identifier)(yystack.valueAt (3-(2))))); };
   break;
     
 
@@ -414,15 +415,177 @@ public final class ApplicationParser
   if (yyn == 6)
     
 /* Line 351 of lalr1.java  */
-/* Line 48 of "application.y"  */
-    { yyval = new Application.Contents(); };
+/* Line 55 of "datamodel.y"  */
+    { yyval = new ImportDeclaration(((Identifier)(yystack.valueAt (5-(2)))), true); };
+  break;
+    
+
+  case 7:
+  if (yyn == 7)
+    
+/* Line 351 of lalr1.java  */
+/* Line 57 of "datamodel.y"  */
+    { yyval = new SimpleIdentifier(((String)(yystack.valueAt (1-(1))))); };
+  break;
+    
+
+  case 8:
+  if (yyn == 8)
+    
+/* Line 351 of lalr1.java  */
+/* Line 59 of "datamodel.y"  */
+    { yyval = new SimpleTypeReference(((Identifier)(yystack.valueAt (1-(1))))); };
+  break;
+    
+
+  case 9:
+  if (yyn == 9)
+    
+/* Line 351 of lalr1.java  */
+/* Line 60 of "datamodel.y"  */
+    { yyval = new ArrayTypeReference(((TypeReference)(yystack.valueAt (3-(1))))); };
+  break;
+    
+
+  case 10:
+  if (yyn == 10)
+    
+/* Line 351 of lalr1.java  */
+/* Line 61 of "datamodel.y"  */
+    { yyval = new GenericTypeReference(((TypeReference)(yystack.valueAt (4-(1)))), ((GenericTypeReference.Arguments)(yystack.valueAt (4-(3))))); };
+  break;
+    
+
+  case 11:
+  if (yyn == 11)
+    
+/* Line 351 of lalr1.java  */
+/* Line 63 of "datamodel.y"  */
+    { yyval = new GenericTypeReference.Arguments().add(((TypeReference)(yystack.valueAt (1-(1))))); };
+  break;
+    
+
+  case 12:
+  if (yyn == 12)
+    
+/* Line 351 of lalr1.java  */
+/* Line 64 of "datamodel.y"  */
+    { yyval = ((GenericTypeReference.Arguments)(yystack.valueAt (3-(1)))).add(((TypeReference)(yystack.valueAt (3-(3))))); };
+  break;
+    
+
+  case 13:
+  if (yyn == 13)
+    
+/* Line 351 of lalr1.java  */
+/* Line 67 of "datamodel.y"  */
+    { this.parsedFile = new DflowEntityFile(this.file, ((PackageDeclaration)(yystack.valueAt (3-(1)))), ((ImportDeclaration.Block)(yystack.valueAt (3-(2)))), ((Entity)(yystack.valueAt (3-(3))))); };
+  break;
+    
+
+  case 14:
+  if (yyn == 14)
+    
+/* Line 351 of lalr1.java  */
+/* Line 69 of "datamodel.y"  */
+    { yyval = new Entity(((String)(yystack.valueAt (6-(3)))), ((Entity.Contents)(yystack.valueAt (6-(5))))); };
+  break;
+    
+
+  case 15:
+  if (yyn == 15)
+    
+/* Line 351 of lalr1.java  */
+/* Line 71 of "datamodel.y"  */
+    { yyval = new Entity.Contents(); };
+  break;
+    
+
+  case 16:
+  if (yyn == 16)
+    
+/* Line 351 of lalr1.java  */
+/* Line 72 of "datamodel.y"  */
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addAttribute(((EntityAttribute)(yystack.valueAt (2-(2))))); };
+  break;
+    
+
+  case 17:
+  if (yyn == 17)
+    
+/* Line 351 of lalr1.java  */
+/* Line 73 of "datamodel.y"  */
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addNestedEntity(((Entity)(yystack.valueAt (2-(2))))); };
+  break;
+    
+
+  case 18:
+  if (yyn == 18)
+    
+/* Line 351 of lalr1.java  */
+/* Line 74 of "datamodel.y"  */
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addEnumerate(((Enumerate)(yystack.valueAt (2-(2))))); };
+  break;
+    
+
+  case 19:
+  if (yyn == 19)
+    
+/* Line 351 of lalr1.java  */
+/* Line 76 of "datamodel.y"  */
+    { yyval = new EntityAttribute(((TypeReference)(yystack.valueAt (3-(1)))), ((String)(yystack.valueAt (3-(2))))); };
+  break;
+    
+
+  case 20:
+  if (yyn == 20)
+    
+/* Line 351 of lalr1.java  */
+/* Line 78 of "datamodel.y"  */
+    { yyval = new Enumerate(((String)(yystack.valueAt (6-(3)))), ((Enumerate.Contents)(yystack.valueAt (6-(5))))); };
+  break;
+    
+
+  case 21:
+  if (yyn == 21)
+    
+/* Line 351 of lalr1.java  */
+/* Line 80 of "datamodel.y"  */
+    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (1-(1))))); };
+  break;
+    
+
+  case 22:
+  if (yyn == 22)
+    
+/* Line 351 of lalr1.java  */
+/* Line 81 of "datamodel.y"  */
+    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (2-(1))))); };
+  break;
+    
+
+  case 23:
+  if (yyn == 23)
+    
+/* Line 351 of lalr1.java  */
+/* Line 83 of "datamodel.y"  */
+    { yyval = new Enumerate.Values().add(new Enumerate.Value(((String)(yystack.valueAt (1-(1)))))); };
+  break;
+    
+
+  case 24:
+  if (yyn == 24)
+    
+/* Line 351 of lalr1.java  */
+/* Line 84 of "datamodel.y"  */
+    { yyval = ((Enumerate.Values)(yystack.valueAt (3-(1)))).add(new Enumerate.Value(((String)(yystack.valueAt (3-(3)))))); };
   break;
     
 
 
 
 /* Line 351 of lalr1.java  */
-/* Line 426 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
+/* Line 589 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
 	default: break;
       }
 
@@ -844,11 +1007,14 @@ public final class ApplicationParser
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  private static final byte yypact_ninf_ = -11;
+  private static final byte yypact_ninf_ = -31;
   private static final byte yypact_[] =
   {
-        -3,   -10,    -2,     2,   -11,    -8,    -1,   -11,   -11,   -11,
-      -6,    -7,   -11,    -5,   -11
+         4,     2,   -31,    15,   -31,    14,    13,   -31,   -31,     2,
+      16,   -31,   -31,     7,    17,   -31,    18,     9,    19,   -31,
+     -31,    -5,    12,   -31,   -31,    -3,   -31,   -31,   -31,    22,
+      23,    11,     2,    10,   -31,   -31,   -12,     5,    25,   -31,
+       2,   -31,    20,    -8,   -12,   -31,   -31,    26,   -31
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -856,21 +1022,26 @@ public final class ApplicationParser
      default is an error.  */
   private static final byte yydefact_[] =
   {
-         0,     0,     0,     0,     3,     0,     0,     4,     1,     2,
-       0,     0,     6,     0,     5
+         0,     0,     3,     0,     7,     0,     0,     1,     2,     0,
+       0,     4,    13,     0,     0,     5,     0,     0,     0,    15,
+       6,     0,     0,    14,     8,     0,    17,    16,    18,     0,
+       0,     0,     0,     0,    19,     9,    11,     0,     0,    10,
+       0,    23,     0,    21,    12,    20,    22,     0,    24
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   private static final byte yypgoto_[] =
   {
-       -11,   -11,   -11,   -11,   -11,   -11
+       -31,   -31,   -31,   -31,     0,   -30,   -31,   -31,    21,   -31,
+     -31,   -31,   -31,   -31
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   private static final byte
   yydefgoto_[] =
   {
-        -1,     2,     5,     3,     7,    13
+        -1,     2,     6,    11,    24,    25,    37,     3,    12,    21,
+      27,    28,    42,    43
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -880,14 +1051,22 @@ public final class ApplicationParser
   private static final byte
   yytable_[] =
   {
-         1,     4,     8,     6,     9,    11,    12,    10,     0,    14
+        22,     5,    36,    31,    46,    32,     4,     1,    30,    13,
+      44,    47,    31,     4,    32,     7,    23,     9,    10,    15,
+      16,    14,    29,    39,    40,    14,     8,    35,    17,    19,
+      38,    20,    18,    33,     0,    34,    41,    48,     0,     0,
+       0,    45,    26
   };
 
   /* YYCHECK.  */
   private static final byte
   yycheck_[] =
   {
-         3,    11,     0,     5,    12,    11,    13,     8,    -1,    14
+         5,     1,    32,    15,    12,    17,    11,     3,    11,     9,
+      40,    19,    15,    11,    17,     0,    21,     4,     5,    12,
+      13,     9,    10,    18,    19,     9,    12,    16,    11,    20,
+      20,    12,    14,    11,    -1,    12,    11,    11,    -1,    -1,
+      -1,    21,    21
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -895,8 +1074,11 @@ public final class ApplicationParser
   private static final byte
   yystos_[] =
   {
-         0,     3,    16,    18,    11,    17,     5,    19,     0,    12,
-       8,    11,    13,    20,    14
+         0,     3,    23,    29,    11,    26,    24,     0,    12,     4,
+       5,    25,    30,    26,     9,    12,    13,    11,    14,    20,
+      12,    31,     5,    21,    26,    27,    30,    32,    33,    10,
+      11,    15,    17,    11,    12,    16,    27,    28,    20,    18,
+      19,    11,    34,    35,    27,    21,    12,    19,    11
   };
 
   /* TOKEN_NUMBER_[YYLEX-NUM] -- Internal symbol number corresponding
@@ -905,21 +1087,26 @@ public final class ApplicationParser
   yytoken_number_[] =
   {
          0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,    59,   123,   125
+     265,   266,    59,    46,    42,    91,    93,    60,    62,    44,
+     123,   125
   };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
   private static final byte
   yyr1_[] =
   {
-         0,    15,    16,    17,    18,    19,    20
+         0,    22,    23,    24,    24,    25,    25,    26,    27,    27,
+      27,    28,    28,    29,    30,    31,    31,    31,    31,    32,
+      33,    34,    34,    35,    35
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
   private static final byte
   yyr2_[] =
   {
-         0,     2,     3,     1,     2,     6,     0
+         0,     2,     3,     0,     2,     3,     5,     1,     1,     3,
+       4,     1,     3,     3,     6,     0,     2,     2,     2,     3,
+       6,     1,     2,     1,     3
   };
 
   /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
@@ -927,29 +1114,44 @@ public final class ApplicationParser
   private static final String yytname_[] =
   {
     "$end", "error", "$undefined", "PACKAGE", "IMPORT", "PUBLIC", "PRIVATE",
-  "PROTECTED", "APPLICATION", "ENTITY", "ENUM", "ID", "';'", "'{'", "'}'",
-  "$accept", "package_declaration", "compound_identifier", "dflow_file",
-  "application_definition", "application_contents", null
+  "PROTECTED", "APPLICATION", "ENTITY", "ENUM", "ID", "';'", "'.'", "'*'",
+  "'['", "']'", "'<'", "'>'", "','", "'{'", "'}'", "$accept",
+  "package_declaration", "import_list", "import_declaration",
+  "compound_identifier", "type_reference", "generic_type_arguments",
+  "dflow_file", "entity_definition", "entity_contents",
+  "attribute_definition", "enum_definition", "enum_contents",
+  "enum_values", null
   };
 
   /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
   private static final byte yyrhs_[] =
   {
-        18,     0,    -1,     3,    17,    12,    -1,    11,    -1,    16,
-      19,    -1,     5,     8,    11,    13,    20,    14,    -1,    -1
+        29,     0,    -1,     3,    26,    12,    -1,    -1,    24,    25,
+      -1,     4,    26,    12,    -1,     4,    26,    13,    14,    12,
+      -1,    11,    -1,    26,    -1,    27,    15,    16,    -1,    27,
+      17,    28,    18,    -1,    27,    -1,    28,    19,    27,    -1,
+      23,    24,    30,    -1,     5,     9,    11,    20,    31,    21,
+      -1,    -1,    31,    32,    -1,    31,    30,    -1,    31,    33,
+      -1,    27,    11,    12,    -1,     5,    10,    11,    20,    34,
+      21,    -1,    35,    -1,    35,    12,    -1,    11,    -1,    35,
+      19,    11,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
      YYRHS.  */
   private static final byte yyprhs_[] =
   {
-         0,     0,     3,     7,     9,    12,    19
+         0,     0,     3,     7,     8,    11,    15,    21,    23,    25,
+      29,    34,    36,    40,    44,    51,    52,    55,    58,    61,
+      65,    72,    74,    77,    79
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   private static final byte yyrline_[] =
   {
-         0,    40,    40,    42,    44,    46,    48
+         0,    49,    49,    51,    52,    54,    55,    57,    59,    60,
+      61,    63,    64,    67,    69,    71,    72,    73,    74,    76,
+      78,    80,    81,    83,    84
   };
 
   // Report on the debug stream that the rule yyrule is going to be reduced.
@@ -979,15 +1181,15 @@ public final class ApplicationParser
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,    14,     2,    19,     2,    13,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,    12,
+      17,     2,    18,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,    15,     2,    16,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    13,     2,    14,     2,     2,     2,     2,
+       2,     2,     2,    20,     2,    21,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1012,13 +1214,13 @@ public final class ApplicationParser
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 9;
-  private static final int yynnts_ = 6;
+  private static final int yylast_ = 42;
+  private static final int yynnts_ = 14;
   private static final int yyempty_ = -2;
-  private static final int yyfinal_ = 8;
+  private static final int yyfinal_ = 7;
   private static final int yyterror_ = 1;
   private static final int yyerrcode_ = 256;
-  private static final int yyntokens_ = 15;
+  private static final int yyntokens_ = 22;
 
   private static final int yyuser_token_number_max_ = 266;
   private static final int yyundef_token_ = 2;
@@ -1027,18 +1229,18 @@ public final class ApplicationParser
 /* Unqualified %code blocks.  */
 
 /* Line 927 of lalr1.java  */
-/* Line 15 of "application.y"  */
+/* Line 16 of "datamodel.y"  */
 
-    private DflowApplicationFile parsedFile;
+    private DflowEntityFile parsedFile;
 
-    public DflowApplicationFile getParsedFile() {
+    public DflowEntityFile getParsedFile() {
         return parsedFile;
     }
 
 
 
 /* Line 927 of lalr1.java  */
-/* Line 1042 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
+/* Line 1244 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
 
 }
 
