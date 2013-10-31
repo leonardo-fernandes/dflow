@@ -12,6 +12,11 @@ public class GenericType extends Type {
 	}
 	
 	@Override
+	public String getName() {
+		return type.getName() + "<" + getArgumentNames() + ">";
+	}
+	
+	@Override
 	public String getFullName() {
 		return type.getFullName() + "<" + getArgumentNames() + ">";
 	}

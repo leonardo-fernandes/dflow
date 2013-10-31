@@ -9,6 +9,11 @@ public class ExternalType extends Type {
 	}
 	
 	@Override
+	public String getName() {
+		return clazz.getSimpleName();
+	}
+	
+	@Override
 	public String getFullName() {
 		return clazz.getCanonicalName();
 	}

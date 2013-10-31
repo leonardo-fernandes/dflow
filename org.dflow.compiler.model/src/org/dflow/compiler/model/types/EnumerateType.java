@@ -9,6 +9,11 @@ public class EnumerateType extends Type {
 	public EnumerateType(Enumerate $enum) {
 		this.$enum = $enum;
 	}
+	
+	@Override
+	public String getName() {
+		return $enum.getName();
+	}
 
 	@Override
 	public String getFullName() {

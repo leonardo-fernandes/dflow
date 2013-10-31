@@ -68,6 +68,7 @@ public class Enum implements Writeable, Annotated {
 		writer.indent();
 		
 		writer.write(values, ", ");
+		writer.println(";");
 		
 		writer.unindent();
 		writer.write("}");

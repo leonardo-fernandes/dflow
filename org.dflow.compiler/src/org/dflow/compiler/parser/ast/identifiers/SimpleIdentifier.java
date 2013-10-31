@@ -7,7 +7,17 @@ public class SimpleIdentifier extends CompoundIdentifier {
 	}
 	
 	@Override
+	public String getQualifier() {
+		return null;
+	}
+	
+	@Override
+	public String getLastPart() {
+		return getFirstPart();
+	}
+	
+	@Override
 	public String toString() {
-		return getPart();
+		return getFirstPart();
 	}
 }

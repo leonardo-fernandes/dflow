@@ -3,24 +3,37 @@ package org.dflow.compiler.parser.ast.identifiers;
 public class CompoundIdentifier extends Identifier {
 
 	private final String part;
-	private final Identifier next;
+	private final CompoundIdentifier next;
 	
-	public CompoundIdentifier(String part, Identifier next) {
+	public CompoundIdentifier(String part, CompoundIdentifier next) {
 		this.part = part;
 		this.next = next;
 	}
 	
-	public String getPart() {
+	public String getFirstPart() {
 		return part;
 	}
 	
-	public Identifier getNext() {
+	public String getQualifier() {
+		String nextQualifier = getNext().getQualifier();
+		if (nextQualifier == null) {
+			return getFirstPart();
+		} else {
+			return getFirstPart() + "." + nextQualifier;
+		}
+	}
+	
+	public String getLastPart() {
+		return next.getLastPart();
+	}
+	
+	public CompoundIdentifier getNext() {
 		return next;
 	}
 	
 	@Override
 	public String toString() {
-		return getPart() + "." + getNext().toString();
+		return getFirstPart() + "." + getNext().toString();
 	}
 	
 }

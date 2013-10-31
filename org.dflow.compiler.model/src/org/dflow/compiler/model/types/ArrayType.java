@@ -9,6 +9,11 @@ public class ArrayType extends Type {
 	}
 	
 	@Override
+	public String getName() {
+		return type.getName() + "[]";
+	}
+	
+	@Override
 	public String getFullName() {
 		return type.getFullName() + "[]";
 	}

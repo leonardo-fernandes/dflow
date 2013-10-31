@@ -2,13 +2,16 @@ package org.dflow.compiler.parser.ast;
 
 import java.util.Arrays;
 
-import org.dflow.compiler.parser.ast.identifiers.Identifier;
+import org.dflow.compiler.parser.ast.identifiers.CompoundIdentifier;
+import org.dflow.compiler.semantic.CompilationContext;
+import org.dflow.compiler.semantic.Scope;
+import org.dflow.compiler.semantic.scope.ImportPackageScope;
 
 public class PackageDeclaration extends Node {
 	
-	private final Identifier id;
+	private final CompoundIdentifier id;
 	
-	public PackageDeclaration(Identifier id) {
+	public PackageDeclaration(CompoundIdentifier id) {
 		this.id = id;
 	}
 	
@@ -21,4 +24,7 @@ public class PackageDeclaration extends Node {
 		return Arrays.asList(new Node[] { id });
 	}
 
+	public Scope getScope(CompilationContext context) {
+		return new ImportPackageScope(context.getTypeResolver(), getName());
+	}
 }

@@ -1,6 +1,7 @@
 package org.dflow.compiler.semantic.scope;
 
 import org.dflow.compiler.model.types.Type;
+import org.dflow.compiler.semantic.Scope;
 import org.dflow.compiler.semantic.TypeResolver;
 
 public class ImportPackageScope extends Scope {

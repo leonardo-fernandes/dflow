@@ -1,6 +1,7 @@
 package org.dflow.compiler.semantic.scope;
 
 import org.dflow.compiler.model.types.Type;
+import org.dflow.compiler.semantic.Scope;
 import org.dflow.compiler.semantic.TypeResolver;
 
 public class ImportTypeScope extends Scope {
@@ -19,7 +20,7 @@ public class ImportTypeScope extends Scope {
 		if (name.equals(type)) {
 			return resolver.lookup($package + "." + type);
 		} else {
-			return null;
+			return Type.UNKNOWN;
 		}
 	}
 

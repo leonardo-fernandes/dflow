@@ -11,6 +11,11 @@ public class EntityType extends Type {
 	}
 	
 	@Override
+	public String getName() {
+		return entity.getName();
+	}
+	
+	@Override
 	public String getFullName() {
 		return entity.getFullName();
 	}

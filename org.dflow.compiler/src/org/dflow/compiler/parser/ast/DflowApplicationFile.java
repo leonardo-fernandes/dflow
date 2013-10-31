@@ -2,6 +2,7 @@ package org.dflow.compiler.parser.ast;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.dflow.compiler.parser.ast.application.Application;
 
@@ -18,6 +19,7 @@ public class DflowApplicationFile extends DflowFile {
 		this.$package = $package;
 	}
 	
+	@Override
 	public File getFile() {
 		return file;
 	}
@@ -25,9 +27,15 @@ public class DflowApplicationFile extends DflowFile {
 	public Application getRoot() {
 		return root;
 	}
-	
+
+	@Override
 	public PackageDeclaration getPackage() {
 		return $package;
+	}
+	
+	@Override
+	public Collection<ImportDeclaration> getImports() {
+		return Arrays.asList(new ImportDeclaration[] {});
 	}
 	
 	@Override

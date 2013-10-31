@@ -1,6 +1,7 @@
 package org.dflow.compiler.parser.ast.datamodel;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -8,15 +9,19 @@ import java.util.List;
 import org.dflow.compiler.model.types.EntityType;
 import org.dflow.compiler.model.types.Type;
 import org.dflow.compiler.parser.ast.Node;
+import org.dflow.compiler.parser.ast.ScopeProvider;
 import org.dflow.compiler.parser.ast.TypeProvider;
 import org.dflow.compiler.parser.ast.enumerate.Enumerate;
+import org.dflow.compiler.semantic.CompilationContext;
+import org.dflow.compiler.semantic.Scope;
+import org.dflow.compiler.semantic.scope.EntityDeclarationScope;
 
-public class Entity extends Node implements TypeProvider<EntityType> {
+public class Entity extends Node implements TypeProvider<EntityType>, ScopeProvider {
 	
 	private final String name;
 	private final Contents contents;
 	
-	private Type type = Type.UNKNOWN;
+	private org.dflow.compiler.model.datamodel.Entity model;
 	
 	public Entity(String name, Contents contents) {
 		this.name = name;
@@ -27,8 +32,24 @@ public class Entity extends Node implements TypeProvider<EntityType> {
 		return name;
 	}
 	
-	public Contents getContents() {
-		return contents;
+	public Collection<EntityAttribute> getAttributes() {
+		return Collections.unmodifiableCollection(contents.attributes.attributes);
+	}
+	
+	public Collection<Entity> getNestedEntities() {
+		return Collections.unmodifiableCollection(contents.entities.entities);
+	}
+	
+	public Collection<Enumerate> getNestedEnums() {
+		return Collections.unmodifiableCollection(contents.enums.enums);
+	}
+	
+	public org.dflow.compiler.model.datamodel.Entity getModel() {
+		return model;
+	}
+	
+	public void setModel(org.dflow.compiler.model.datamodel.Entity entity) {
+		this.model = entity;
 	}
 	
 	@Override
@@ -37,18 +58,22 @@ public class Entity extends Node implements TypeProvider<EntityType> {
 	}
 	
 	@Override
+	public Scope getScope(CompilationContext context) {
+		return new EntityDeclarationScope(context.getTypeResolver(), this);
+	}
+
+	@Override
 	public Type getSafeType() {
-		return type;
+		if (model == null) {
+			return Type.UNKNOWN;
+		} else {
+			return getType();
+		}
 	}
 
 	@Override
 	public EntityType getType() {
-		return (EntityType) type;
-	}
-	
-	@Override
-	public void setType(EntityType type) {
-		this.type = type;
+		return model.getType();
 	}
 	
 	public static class Contents extends Node {

@@ -1,9 +1,10 @@
 package org.dflow.compiler.parser.ast;
 
-import org.dflow.compiler.semantic.scope.Scope;
+import org.dflow.compiler.semantic.CompilationContext;
+import org.dflow.compiler.semantic.Scope;
 
 public interface ScopeProvider {
 	
-	Scope getScope();
+	Scope getScope(CompilationContext context);
 
 }

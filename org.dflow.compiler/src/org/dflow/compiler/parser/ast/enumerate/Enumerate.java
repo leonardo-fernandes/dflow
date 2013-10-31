@@ -1,6 +1,7 @@
 package org.dflow.compiler.parser.ast.enumerate;
 
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -15,7 +16,7 @@ public class Enumerate extends Node implements TypeProvider<EnumerateType> {
 	private final String name;
 	private final Contents contents;
 	
-	private Type type = Type.UNKNOWN;
+	private org.dflow.compiler.model.enums.Enumerate model;
 	
 	public Enumerate(String name, Contents contents) {
 		this.name = name;
@@ -26,8 +27,16 @@ public class Enumerate extends Node implements TypeProvider<EnumerateType> {
 		return name;
 	}
 	
-	public Contents getContents() {
-		return contents;
+	public Collection<Value> getValues() {
+		return Collections.unmodifiableCollection(contents.values.values);
+	}
+	
+	public org.dflow.compiler.model.enums.Enumerate getModel() {
+		return model;
+	}
+	
+	public void setModel(org.dflow.compiler.model.enums.Enumerate model) {
+		this.model = model;
 	}
 	
 	@Override
@@ -37,17 +46,16 @@ public class Enumerate extends Node implements TypeProvider<EnumerateType> {
 	
 	@Override
 	public Type getSafeType() {
-		return type;
+		if (model == null) {
+			return Type.UNKNOWN;
+		} else {
+			return getType();
+		}
 	}
 	
 	@Override
 	public EnumerateType getType() {
-		return (EnumerateType) type;
-	}
-	
-	@Override
-	public void setType(EnumerateType type) {
-		this.type = type;
+		return model.getType();
 	}
 	
 	public static class Contents extends Node {

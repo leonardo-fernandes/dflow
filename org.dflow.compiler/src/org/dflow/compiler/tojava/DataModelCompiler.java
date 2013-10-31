@@ -16,7 +16,11 @@ import org.dflow.compiler.parser.DataModelParser;
 import org.dflow.compiler.parser.DflowLexer;
 import org.dflow.compiler.parser.ast.DflowFile;
 import org.dflow.compiler.parser.ast.Node;
+import org.dflow.compiler.parser.ast.ScopeProvider;
+import org.dflow.compiler.parser.ast.datamodel.EntityAttribute;
+import org.dflow.compiler.parser.ast.enumerate.Enumerate.Value;
 import org.dflow.compiler.semantic.CompilationContext;
+import org.dflow.compiler.semantic.ScopeStack;
 import org.dflow.compiler.tojava.language.Annotation;
 import org.dflow.compiler.tojava.language.Class;
 import org.dflow.compiler.tojava.language.EnumValue;
@@ -47,6 +51,7 @@ class DataModelCompiler {
 		parser.visit();
 		
 		new RegisterTypesVisitor(context.getParsedFiles()).visit();
+		new CreateModelVisitor(context.getParsedFiles()).visit();
 		
 		for (Entity e : context.getApplication().getDataModel().getEntities()) {
 			compile(e);
@@ -168,8 +173,8 @@ class DataModelCompiler {
 				parent.addNestedEntity(entity);
 			}
 			
-			node.setType(entity.getType());
-			context.getTypeResolver().add(entity.getType());
+			node.setModel(entity);
+			context.getTypeResolver().add(node.getType());
 			return entity;
 		}
 		
@@ -184,10 +189,53 @@ class DataModelCompiler {
 				parent.addNestedEnum($enum);
 			}
 			
-			node.setType($enum.getType());
-			context.getTypeResolver().add($enum.getType());
+			node.setModel($enum);
+			context.getTypeResolver().add(node.getType());
 			return $enum;
 		}
 		
 	}
+	
+	private class CreateModelVisitor extends Node.Visitor {
+		
+		private ScopeStack scope = new ScopeStack(context.getTypeResolver());
+		
+		public CreateModelVisitor(Iterable<DflowFile> files) {
+			super(files);
+		}
+		
+		@Override
+		protected Action enter(Node n) {
+			if (n instanceof ScopeProvider) {
+				scope.push(((ScopeProvider) n).getScope(context));
+			}
+
+			if (n instanceof org.dflow.compiler.parser.ast.datamodel.Entity) {
+				createEntity((org.dflow.compiler.parser.ast.datamodel.Entity) n, ((org.dflow.compiler.parser.ast.datamodel.Entity) n).getModel());
+			} else if (n instanceof org.dflow.compiler.parser.ast.enumerate.Enumerate) {
+				createEnum((org.dflow.compiler.parser.ast.enumerate.Enumerate) n, ((org.dflow.compiler.parser.ast.enumerate.Enumerate) n).getModel());
+			}
+			return Action.CONTINUE;
+		}
+
+		@Override
+		protected void leave(Node n) {
+			if (n instanceof ScopeProvider) {
+				scope.pop();
+			}
+		}
+
+		private void createEntity(org.dflow.compiler.parser.ast.datamodel.Entity node, Entity entity) {
+			for (EntityAttribute attr : node.getAttributes()) {
+				entity.addAttribute(new Attribute(attr.getName(), attr.getType().resolveType(scope)));
+			}
+		}
+		
+		private void createEnum(org.dflow.compiler.parser.ast.enumerate.Enumerate node, Enumerate $enum) {
+			for (Value val : node.getValues()) {
+				$enum.addValue(val.getName());
+			}
+		}
+	}
+	
 }

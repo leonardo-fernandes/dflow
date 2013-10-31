@@ -2,6 +2,7 @@ package org.dflow.compiler.parser.ast;
 
 import java.io.File;
 import java.util.Arrays;
+import java.util.Collection;
 
 import org.dflow.compiler.parser.ast.datamodel.Entity;
 
@@ -19,16 +20,19 @@ public class DflowEntityFile extends DflowFile {
 		this.entity = entity;
 	}
 	
+	@Override
 	public File getFile() {
 		return file;
 	}
 	
+	@Override
 	public PackageDeclaration getPackage() {
 		return $package;
 	}
 	
-	public ImportDeclaration.Block getImports() {
-		return imports;
+	@Override
+	public Collection<ImportDeclaration> getImports() {
+		return imports.getImports();
 	}
 	
 	public Entity getEntity() {
