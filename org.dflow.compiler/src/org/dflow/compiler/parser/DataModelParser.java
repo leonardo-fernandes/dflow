@@ -379,8 +379,8 @@ public final class DataModelParser
   if (yyn == 2)
     
 /* Line 351 of lalr1.java  */
-/* Line 49 of "datamodel.y"  */
-    { yyval = new PackageDeclaration(((Identifier)(yystack.valueAt (3-(2))))); };
+/* Line 50 of "datamodel.y"  */
+    { yyval = new PackageDeclaration(((CompoundIdentifier)(yystack.valueAt (3-(2))))); };
   break;
     
 
@@ -388,7 +388,7 @@ public final class DataModelParser
   if (yyn == 3)
     
 /* Line 351 of lalr1.java  */
-/* Line 51 of "datamodel.y"  */
+/* Line 52 of "datamodel.y"  */
     { yyval = new ImportDeclaration.Block(); };
   break;
     
@@ -397,7 +397,7 @@ public final class DataModelParser
   if (yyn == 4)
     
 /* Line 351 of lalr1.java  */
-/* Line 52 of "datamodel.y"  */
+/* Line 53 of "datamodel.y"  */
     { yyval = ((ImportDeclaration.Block)(yystack.valueAt (2-(1)))).add(((ImportDeclaration)(yystack.valueAt (2-(2))))); };
   break;
     
@@ -406,8 +406,8 @@ public final class DataModelParser
   if (yyn == 5)
     
 /* Line 351 of lalr1.java  */
-/* Line 54 of "datamodel.y"  */
-    { yyval = new ImportDeclaration(((Identifier)(yystack.valueAt (3-(2))))); };
+/* Line 55 of "datamodel.y"  */
+    { yyval = new ImportDeclaration(((CompoundIdentifier)(yystack.valueAt (3-(2))))); };
   break;
     
 
@@ -415,8 +415,8 @@ public final class DataModelParser
   if (yyn == 6)
     
 /* Line 351 of lalr1.java  */
-/* Line 55 of "datamodel.y"  */
-    { yyval = new ImportDeclaration(((Identifier)(yystack.valueAt (5-(2)))), true); };
+/* Line 56 of "datamodel.y"  */
+    { yyval = new ImportDeclaration(((CompoundIdentifier)(yystack.valueAt (5-(2)))), true); };
   break;
     
 
@@ -424,7 +424,7 @@ public final class DataModelParser
   if (yyn == 7)
     
 /* Line 351 of lalr1.java  */
-/* Line 57 of "datamodel.y"  */
+/* Line 58 of "datamodel.y"  */
     { yyval = new SimpleIdentifier(((String)(yystack.valueAt (1-(1))))); };
   break;
     
@@ -434,7 +434,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 59 of "datamodel.y"  */
-    { yyval = new SimpleTypeReference(((Identifier)(yystack.valueAt (1-(1))))); };
+    { yyval = new CompoundIdentifier(((String)(yystack.valueAt (3-(1)))), ((CompoundIdentifier)(yystack.valueAt (3-(3))))); };
   break;
     
 
@@ -442,8 +442,8 @@ public final class DataModelParser
   if (yyn == 9)
     
 /* Line 351 of lalr1.java  */
-/* Line 60 of "datamodel.y"  */
-    { yyval = new ArrayTypeReference(((TypeReference)(yystack.valueAt (3-(1))))); };
+/* Line 61 of "datamodel.y"  */
+    { yyval = new SimpleTypeReference(((CompoundIdentifier)(yystack.valueAt (1-(1))))); };
   break;
     
 
@@ -451,8 +451,8 @@ public final class DataModelParser
   if (yyn == 10)
     
 /* Line 351 of lalr1.java  */
-/* Line 61 of "datamodel.y"  */
-    { yyval = new GenericTypeReference(((TypeReference)(yystack.valueAt (4-(1)))), ((GenericTypeReference.Arguments)(yystack.valueAt (4-(3))))); };
+/* Line 62 of "datamodel.y"  */
+    { yyval = new ArrayTypeReference(((TypeReference)(yystack.valueAt (3-(1))))); };
   break;
     
 
@@ -461,7 +461,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 63 of "datamodel.y"  */
-    { yyval = new GenericTypeReference.Arguments().add(((TypeReference)(yystack.valueAt (1-(1))))); };
+    { yyval = new GenericTypeReference(((TypeReference)(yystack.valueAt (4-(1)))), ((GenericTypeReference.Arguments)(yystack.valueAt (4-(3))))); };
   break;
     
 
@@ -469,8 +469,8 @@ public final class DataModelParser
   if (yyn == 12)
     
 /* Line 351 of lalr1.java  */
-/* Line 64 of "datamodel.y"  */
-    { yyval = ((GenericTypeReference.Arguments)(yystack.valueAt (3-(1)))).add(((TypeReference)(yystack.valueAt (3-(3))))); };
+/* Line 65 of "datamodel.y"  */
+    { yyval = new GenericTypeReference.Arguments().add(((TypeReference)(yystack.valueAt (1-(1))))); };
   break;
     
 
@@ -478,8 +478,8 @@ public final class DataModelParser
   if (yyn == 13)
     
 /* Line 351 of lalr1.java  */
-/* Line 67 of "datamodel.y"  */
-    { this.parsedFile = new DflowEntityFile(this.file, ((PackageDeclaration)(yystack.valueAt (3-(1)))), ((ImportDeclaration.Block)(yystack.valueAt (3-(2)))), ((Entity)(yystack.valueAt (3-(3))))); };
+/* Line 66 of "datamodel.y"  */
+    { yyval = ((GenericTypeReference.Arguments)(yystack.valueAt (3-(1)))).add(((TypeReference)(yystack.valueAt (3-(3))))); };
   break;
     
 
@@ -488,7 +488,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 69 of "datamodel.y"  */
-    { yyval = new Entity(((String)(yystack.valueAt (6-(3)))), ((Entity.Contents)(yystack.valueAt (6-(5))))); };
+    { this.parsedFile = new DflowEntityFile(this.file, ((PackageDeclaration)(yystack.valueAt (3-(1)))), ((ImportDeclaration.Block)(yystack.valueAt (3-(2)))), ((Entity)(yystack.valueAt (3-(3))))); };
   break;
     
 
@@ -497,7 +497,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 71 of "datamodel.y"  */
-    { yyval = new Entity.Contents(); };
+    { yyval = new Entity(((String)(yystack.valueAt (6-(3)))), ((Entity.Contents)(yystack.valueAt (6-(5))))); };
   break;
     
 
@@ -505,8 +505,8 @@ public final class DataModelParser
   if (yyn == 16)
     
 /* Line 351 of lalr1.java  */
-/* Line 72 of "datamodel.y"  */
-    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addAttribute(((EntityAttribute)(yystack.valueAt (2-(2))))); };
+/* Line 73 of "datamodel.y"  */
+    { yyval = new Entity.Contents(); };
   break;
     
 
@@ -514,8 +514,8 @@ public final class DataModelParser
   if (yyn == 17)
     
 /* Line 351 of lalr1.java  */
-/* Line 73 of "datamodel.y"  */
-    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addNestedEntity(((Entity)(yystack.valueAt (2-(2))))); };
+/* Line 74 of "datamodel.y"  */
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addAttribute(((EntityAttribute)(yystack.valueAt (2-(2))))); };
   break;
     
 
@@ -523,8 +523,8 @@ public final class DataModelParser
   if (yyn == 18)
     
 /* Line 351 of lalr1.java  */
-/* Line 74 of "datamodel.y"  */
-    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addEnumerate(((Enumerate)(yystack.valueAt (2-(2))))); };
+/* Line 75 of "datamodel.y"  */
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addNestedEntity(((Entity)(yystack.valueAt (2-(2))))); };
   break;
     
 
@@ -533,7 +533,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 76 of "datamodel.y"  */
-    { yyval = new EntityAttribute(((TypeReference)(yystack.valueAt (3-(1)))), ((String)(yystack.valueAt (3-(2))))); };
+    { yyval = ((Entity.Contents)(yystack.valueAt (2-(1)))).addEnumerate(((Enumerate)(yystack.valueAt (2-(2))))); };
   break;
     
 
@@ -542,7 +542,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 78 of "datamodel.y"  */
-    { yyval = new Enumerate(((String)(yystack.valueAt (6-(3)))), ((Enumerate.Contents)(yystack.valueAt (6-(5))))); };
+    { yyval = new EntityAttribute(((TypeReference)(yystack.valueAt (3-(1)))), ((String)(yystack.valueAt (3-(2))))); };
   break;
     
 
@@ -551,7 +551,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 80 of "datamodel.y"  */
-    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (1-(1))))); };
+    { yyval = new Enumerate(((String)(yystack.valueAt (6-(3)))), ((Enumerate.Contents)(yystack.valueAt (6-(5))))); };
   break;
     
 
@@ -559,8 +559,8 @@ public final class DataModelParser
   if (yyn == 22)
     
 /* Line 351 of lalr1.java  */
-/* Line 81 of "datamodel.y"  */
-    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (2-(1))))); };
+/* Line 82 of "datamodel.y"  */
+    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (1-(1))))); };
   break;
     
 
@@ -569,7 +569,7 @@ public final class DataModelParser
     
 /* Line 351 of lalr1.java  */
 /* Line 83 of "datamodel.y"  */
-    { yyval = new Enumerate.Values().add(new Enumerate.Value(((String)(yystack.valueAt (1-(1)))))); };
+    { yyval = new Enumerate.Contents(((Enumerate.Values)(yystack.valueAt (2-(1))))); };
   break;
     
 
@@ -577,7 +577,16 @@ public final class DataModelParser
   if (yyn == 24)
     
 /* Line 351 of lalr1.java  */
-/* Line 84 of "datamodel.y"  */
+/* Line 85 of "datamodel.y"  */
+    { yyval = new Enumerate.Values().add(new Enumerate.Value(((String)(yystack.valueAt (1-(1)))))); };
+  break;
+    
+
+  case 25:
+  if (yyn == 25)
+    
+/* Line 351 of lalr1.java  */
+/* Line 86 of "datamodel.y"  */
     { yyval = ((Enumerate.Values)(yystack.valueAt (3-(1)))).add(new Enumerate.Value(((String)(yystack.valueAt (3-(3)))))); };
   break;
     
@@ -585,7 +594,7 @@ public final class DataModelParser
 
 
 /* Line 351 of lalr1.java  */
-/* Line 589 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
+/* Line 598 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
 	default: break;
       }
 
@@ -1007,14 +1016,15 @@ public final class DataModelParser
 
   /* YYPACT[STATE-NUM] -- Index in YYTABLE of the portion describing
      STATE-NUM.  */
-  private static final byte yypact_ninf_ = -31;
+  private static final byte yypact_ninf_ = -32;
   private static final byte yypact_[] =
   {
-         4,     2,   -31,    15,   -31,    14,    13,   -31,   -31,     2,
-      16,   -31,   -31,     7,    17,   -31,    18,     9,    19,   -31,
-     -31,    -5,    12,   -31,   -31,    -3,   -31,   -31,   -31,    22,
-      23,    11,     2,    10,   -31,   -31,   -12,     5,    25,   -31,
-       2,   -31,    20,    -8,   -12,   -31,   -31,    26,   -31
+         4,     7,   -32,    15,    14,    17,    16,   -32,     7,   -32,
+       7,    19,   -32,   -32,   -32,    -8,    20,   -32,    12,    10,
+      21,   -32,   -32,    -5,    13,   -32,   -32,     2,   -32,   -32,
+     -32,    23,    24,    22,     7,    25,   -32,   -32,    -3,     6,
+      26,   -32,     7,   -32,    11,   -10,    -3,   -32,   -32,    28,
+     -32
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -1022,26 +1032,27 @@ public final class DataModelParser
      default is an error.  */
   private static final byte yydefact_[] =
   {
-         0,     0,     3,     0,     7,     0,     0,     1,     2,     0,
-       0,     4,    13,     0,     0,     5,     0,     0,     0,    15,
-       6,     0,     0,    14,     8,     0,    17,    16,    18,     0,
-       0,     0,     0,     0,    19,     9,    11,     0,     0,    10,
-       0,    23,     0,    21,    12,    20,    22,     0,    24
+         0,     0,     3,     0,     7,     0,     0,     1,     0,     2,
+       0,     0,     4,    14,     8,     0,     0,     5,     0,     0,
+       0,    16,     6,     0,     0,    15,     9,     0,    18,    17,
+      19,     0,     0,     0,     0,     0,    20,    10,    12,     0,
+       0,    11,     0,    24,     0,    22,    13,    21,    23,     0,
+      25
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   private static final byte yypgoto_[] =
   {
-       -31,   -31,   -31,   -31,     0,   -30,   -31,   -31,    21,   -31,
-     -31,   -31,   -31,   -31
+       -32,   -32,   -32,   -32,     0,   -31,   -32,   -32,    18,   -32,
+     -32,   -32,   -32,   -32
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   private static final byte
   yydefgoto_[] =
   {
-        -1,     2,     6,    11,    24,    25,    37,     3,    12,    21,
-      27,    28,    42,    43
+        -1,     2,     6,    12,    26,    27,    39,     3,    13,    23,
+      29,    30,    44,    45
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -1051,22 +1062,22 @@ public final class DataModelParser
   private static final byte
   yytable_[] =
   {
-        22,     5,    36,    31,    46,    32,     4,     1,    30,    13,
-      44,    47,    31,     4,    32,     7,    23,     9,    10,    15,
-      16,    14,    29,    39,    40,    14,     8,    35,    17,    19,
-      38,    20,    18,    33,     0,    34,    41,    48,     0,     0,
-       0,    45,    26
+        24,     5,    48,    38,    17,    18,     4,     1,    14,    49,
+      15,    46,    33,    32,    34,     7,    25,    33,     4,    34,
+      10,    11,    16,    31,    41,    42,    20,     8,    16,     9,
+      21,    19,    47,    22,    35,     0,    36,    43,    37,    50,
+       0,    28,     0,     0,     0,    40
   };
 
   /* YYCHECK.  */
   private static final byte
   yycheck_[] =
   {
-         5,     1,    32,    15,    12,    17,    11,     3,    11,     9,
-      40,    19,    15,    11,    17,     0,    21,     4,     5,    12,
-      13,     9,    10,    18,    19,     9,    12,    16,    11,    20,
-      20,    12,    14,    11,    -1,    12,    11,    11,    -1,    -1,
-      -1,    21,    21
+         5,     1,    12,    34,    12,    13,    11,     3,     8,    19,
+      10,    42,    15,    11,    17,     0,    21,    15,    11,    17,
+       4,     5,     9,    10,    18,    19,    14,    13,     9,    12,
+      20,    11,    21,    12,    11,    -1,    12,    11,    16,    11,
+      -1,    23,    -1,    -1,    -1,    20
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -1074,11 +1085,12 @@ public final class DataModelParser
   private static final byte
   yystos_[] =
   {
-         0,     3,    23,    29,    11,    26,    24,     0,    12,     4,
-       5,    25,    30,    26,     9,    12,    13,    11,    14,    20,
-      12,    31,     5,    21,    26,    27,    30,    32,    33,    10,
-      11,    15,    17,    11,    12,    16,    27,    28,    20,    18,
-      19,    11,    34,    35,    27,    21,    12,    19,    11
+         0,     3,    23,    29,    11,    26,    24,     0,    13,    12,
+       4,     5,    25,    30,    26,    26,     9,    12,    13,    11,
+      14,    20,    12,    31,     5,    21,    26,    27,    30,    32,
+      33,    10,    11,    15,    17,    11,    12,    16,    27,    28,
+      20,    18,    19,    11,    34,    35,    27,    21,    12,    19,
+      11
   };
 
   /* TOKEN_NUMBER_[YYLEX-NUM] -- Internal symbol number corresponding
@@ -1095,18 +1107,18 @@ public final class DataModelParser
   private static final byte
   yyr1_[] =
   {
-         0,    22,    23,    24,    24,    25,    25,    26,    27,    27,
-      27,    28,    28,    29,    30,    31,    31,    31,    31,    32,
-      33,    34,    34,    35,    35
+         0,    22,    23,    24,    24,    25,    25,    26,    26,    27,
+      27,    27,    28,    28,    29,    30,    31,    31,    31,    31,
+      32,    33,    34,    34,    35,    35
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
   private static final byte
   yyr2_[] =
   {
-         0,     2,     3,     0,     2,     3,     5,     1,     1,     3,
-       4,     1,     3,     3,     6,     0,     2,     2,     2,     3,
-       6,     1,     2,     1,     3
+         0,     2,     3,     0,     2,     3,     5,     1,     3,     1,
+       3,     4,     1,     3,     3,     6,     0,     2,     2,     2,
+       3,     6,     1,     2,     1,     3
   };
 
   /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
@@ -1128,30 +1140,30 @@ public final class DataModelParser
   {
         29,     0,    -1,     3,    26,    12,    -1,    -1,    24,    25,
       -1,     4,    26,    12,    -1,     4,    26,    13,    14,    12,
-      -1,    11,    -1,    26,    -1,    27,    15,    16,    -1,    27,
-      17,    28,    18,    -1,    27,    -1,    28,    19,    27,    -1,
-      23,    24,    30,    -1,     5,     9,    11,    20,    31,    21,
-      -1,    -1,    31,    32,    -1,    31,    30,    -1,    31,    33,
-      -1,    27,    11,    12,    -1,     5,    10,    11,    20,    34,
-      21,    -1,    35,    -1,    35,    12,    -1,    11,    -1,    35,
-      19,    11,    -1
+      -1,    11,    -1,    11,    13,    26,    -1,    26,    -1,    27,
+      15,    16,    -1,    27,    17,    28,    18,    -1,    27,    -1,
+      28,    19,    27,    -1,    23,    24,    30,    -1,     5,     9,
+      11,    20,    31,    21,    -1,    -1,    31,    32,    -1,    31,
+      30,    -1,    31,    33,    -1,    27,    11,    12,    -1,     5,
+      10,    11,    20,    34,    21,    -1,    35,    -1,    35,    12,
+      -1,    11,    -1,    35,    19,    11,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
      YYRHS.  */
   private static final byte yyprhs_[] =
   {
-         0,     0,     3,     7,     8,    11,    15,    21,    23,    25,
-      29,    34,    36,    40,    44,    51,    52,    55,    58,    61,
-      65,    72,    74,    77,    79
+         0,     0,     3,     7,     8,    11,    15,    21,    23,    27,
+      29,    33,    38,    40,    44,    48,    55,    56,    59,    62,
+      65,    69,    76,    78,    81,    83
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   private static final byte yyrline_[] =
   {
-         0,    49,    49,    51,    52,    54,    55,    57,    59,    60,
-      61,    63,    64,    67,    69,    71,    72,    73,    74,    76,
-      78,    80,    81,    83,    84
+         0,    50,    50,    52,    53,    55,    56,    58,    59,    61,
+      62,    63,    65,    66,    69,    71,    73,    74,    75,    76,
+      78,    80,    82,    83,    85,    86
   };
 
   // Report on the debug stream that the rule yyrule is going to be reduced.
@@ -1214,7 +1226,7 @@ public final class DataModelParser
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 42;
+  private static final int yylast_ = 45;
   private static final int yynnts_ = 14;
   private static final int yyempty_ = -2;
   private static final int yyfinal_ = 7;
@@ -1240,7 +1252,7 @@ public final class DataModelParser
 
 
 /* Line 927 of lalr1.java  */
-/* Line 1244 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
+/* Line 1256 of "./../src/org/dflow/compiler/parser/DataModelParser.java"  */
 
 }
 

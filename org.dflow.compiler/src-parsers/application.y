@@ -28,7 +28,7 @@ import org.dflow.compiler.parser.ast.typereferences.*;
 %token <String> ID
 
 %type <PackageDeclaration> package_declaration
-%type <Identifier> compound_identifier
+%type <CompoundIdentifier> compound_identifier
 %type <DflowFile> dflow_file
 %type <Application> application_definition
 %type <Application.Contents> application_contents
@@ -39,7 +39,8 @@ import org.dflow.compiler.parser.ast.typereferences.*;
 
 package_declaration : PACKAGE compound_identifier ';' { $$ = new PackageDeclaration($2); } ;
 
-compound_identifier : ID { $$ = new SimpleIdentifier($1); } ;
+compound_identifier : ID { $$ = new SimpleIdentifier($1); }
+                    | ID '.' compound_identifier { $$ = new CompoundIdentifier($1, $3); } ;
 
 dflow_file : package_declaration application_definition { this.parsedFile = new DflowApplicationFile(this.file, $1, $2); } ;
 

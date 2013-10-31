@@ -379,7 +379,7 @@ public final class ApplicationParser
     
 /* Line 351 of lalr1.java  */
 /* Line 40 of "application.y"  */
-    { yyval = new PackageDeclaration(((Identifier)(yystack.valueAt (3-(2))))); };
+    { yyval = new PackageDeclaration(((CompoundIdentifier)(yystack.valueAt (3-(2))))); };
   break;
     
 
@@ -396,8 +396,8 @@ public final class ApplicationParser
   if (yyn == 4)
     
 /* Line 351 of lalr1.java  */
-/* Line 44 of "application.y"  */
-    { this.parsedFile = new DflowApplicationFile(this.file, ((PackageDeclaration)(yystack.valueAt (2-(1)))), ((Application)(yystack.valueAt (2-(2))))); };
+/* Line 43 of "application.y"  */
+    { yyval = new CompoundIdentifier(((String)(yystack.valueAt (3-(1)))), ((CompoundIdentifier)(yystack.valueAt (3-(3))))); };
   break;
     
 
@@ -405,8 +405,8 @@ public final class ApplicationParser
   if (yyn == 5)
     
 /* Line 351 of lalr1.java  */
-/* Line 46 of "application.y"  */
-    { yyval = new Application(((String)(yystack.valueAt (6-(3)))), ((Application.Contents)(yystack.valueAt (6-(5))))); };
+/* Line 45 of "application.y"  */
+    { this.parsedFile = new DflowApplicationFile(this.file, ((PackageDeclaration)(yystack.valueAt (2-(1)))), ((Application)(yystack.valueAt (2-(2))))); };
   break;
     
 
@@ -414,7 +414,16 @@ public final class ApplicationParser
   if (yyn == 6)
     
 /* Line 351 of lalr1.java  */
-/* Line 48 of "application.y"  */
+/* Line 47 of "application.y"  */
+    { yyval = new Application(((String)(yystack.valueAt (6-(3)))), ((Application.Contents)(yystack.valueAt (6-(5))))); };
+  break;
+    
+
+  case 7:
+  if (yyn == 7)
+    
+/* Line 351 of lalr1.java  */
+/* Line 49 of "application.y"  */
     { yyval = new Application.Contents(); };
   break;
     
@@ -422,7 +431,7 @@ public final class ApplicationParser
 
 
 /* Line 351 of lalr1.java  */
-/* Line 426 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
+/* Line 435 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
 	default: break;
       }
 
@@ -847,8 +856,8 @@ public final class ApplicationParser
   private static final byte yypact_ninf_ = -11;
   private static final byte yypact_[] =
   {
-        -3,   -10,    -2,     2,   -11,    -8,    -1,   -11,   -11,   -11,
-      -6,    -7,   -11,    -5,   -11
+        -3,   -10,    -2,     2,    -9,    -7,    -1,   -11,   -11,   -10,
+     -11,    -5,   -11,    -6,   -11,    -4,   -11
   };
 
   /* YYDEFACT[S] -- default reduction number in state S.  Performed when
@@ -856,21 +865,21 @@ public final class ApplicationParser
      default is an error.  */
   private static final byte yydefact_[] =
   {
-         0,     0,     0,     0,     3,     0,     0,     4,     1,     2,
-       0,     0,     6,     0,     5
+         0,     0,     0,     0,     3,     0,     0,     5,     1,     0,
+       2,     0,     4,     0,     7,     0,     6
   };
 
   /* YYPGOTO[NTERM-NUM].  */
   private static final byte yypgoto_[] =
   {
-       -11,   -11,   -11,   -11,   -11,   -11
+       -11,   -11,     0,   -11,   -11,   -11
   };
 
   /* YYDEFGOTO[NTERM-NUM].  */
   private static final byte
   yydefgoto_[] =
   {
-        -1,     2,     5,     3,     7,    13
+        -1,     2,     5,     3,     7,    15
   };
 
   /* YYTABLE[YYPACT[STATE-NUM]].  What to do in state STATE-NUM.  If
@@ -880,14 +889,16 @@ public final class ApplicationParser
   private static final byte
   yytable_[] =
   {
-         1,     4,     8,     6,     9,    11,    12,    10,     0,    14
+         1,     4,     8,     6,     9,    10,    13,    11,    14,    12,
+       0,    16
   };
 
   /* YYCHECK.  */
   private static final byte
   yycheck_[] =
   {
-         3,    11,     0,     5,    12,    11,    13,     8,    -1,    14
+         3,    11,     0,     5,    13,    12,    11,     8,    14,     9,
+      -1,    15
   };
 
   /* STOS_[STATE-NUM] -- The (internal number of the) accessing
@@ -895,8 +906,8 @@ public final class ApplicationParser
   private static final byte
   yystos_[] =
   {
-         0,     3,    16,    18,    11,    17,     5,    19,     0,    12,
-       8,    11,    13,    20,    14
+         0,     3,    17,    19,    11,    18,     5,    20,     0,    13,
+      12,     8,    18,    11,    14,    21,    15
   };
 
   /* TOKEN_NUMBER_[YYLEX-NUM] -- Internal symbol number corresponding
@@ -905,21 +916,21 @@ public final class ApplicationParser
   yytoken_number_[] =
   {
          0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,    59,   123,   125
+     265,   266,    59,    46,   123,   125
   };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
   private static final byte
   yyr1_[] =
   {
-         0,    15,    16,    17,    18,    19,    20
+         0,    16,    17,    18,    18,    19,    20,    21
   };
 
   /* YYR2[YYN] -- Number of symbols composing right hand side of rule YYN.  */
   private static final byte
   yyr2_[] =
   {
-         0,     2,     3,     1,     2,     6,     0
+         0,     2,     3,     1,     3,     2,     6,     0
   };
 
   /* YYTNAME[SYMBOL-NUM] -- String name of the symbol SYMBOL-NUM.
@@ -927,29 +938,30 @@ public final class ApplicationParser
   private static final String yytname_[] =
   {
     "$end", "error", "$undefined", "PACKAGE", "IMPORT", "PUBLIC", "PRIVATE",
-  "PROTECTED", "APPLICATION", "ENTITY", "ENUM", "ID", "';'", "'{'", "'}'",
-  "$accept", "package_declaration", "compound_identifier", "dflow_file",
-  "application_definition", "application_contents", null
+  "PROTECTED", "APPLICATION", "ENTITY", "ENUM", "ID", "';'", "'.'", "'{'",
+  "'}'", "$accept", "package_declaration", "compound_identifier",
+  "dflow_file", "application_definition", "application_contents", null
   };
 
   /* YYRHS -- A `-1'-separated list of the rules' RHS.  */
   private static final byte yyrhs_[] =
   {
-        18,     0,    -1,     3,    17,    12,    -1,    11,    -1,    16,
-      19,    -1,     5,     8,    11,    13,    20,    14,    -1,    -1
+        19,     0,    -1,     3,    18,    12,    -1,    11,    -1,    11,
+      13,    18,    -1,    17,    20,    -1,     5,     8,    11,    14,
+      21,    15,    -1,    -1
   };
 
   /* YYPRHS[YYN] -- Index of the first RHS symbol of rule number YYN in
      YYRHS.  */
   private static final byte yyprhs_[] =
   {
-         0,     0,     3,     7,     9,    12,    19
+         0,     0,     3,     7,     9,    13,    16,    23
   };
 
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
   private static final byte yyrline_[] =
   {
-         0,    40,    40,    42,    44,    46,    48
+         0,    40,    40,    42,    43,    45,    47,    49
   };
 
   // Report on the debug stream that the rule yyrule is going to be reduced.
@@ -979,7 +991,7 @@ public final class ApplicationParser
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
+       2,     2,     2,     2,     2,     2,    13,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,    12,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -987,7 +999,7 @@ public final class ApplicationParser
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
-       2,     2,     2,    13,     2,    14,     2,     2,     2,     2,
+       2,     2,     2,    14,     2,    15,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
@@ -1012,13 +1024,13 @@ public final class ApplicationParser
       return yyundef_token_;
   }
 
-  private static final int yylast_ = 9;
+  private static final int yylast_ = 11;
   private static final int yynnts_ = 6;
   private static final int yyempty_ = -2;
   private static final int yyfinal_ = 8;
   private static final int yyterror_ = 1;
   private static final int yyerrcode_ = 256;
-  private static final int yyntokens_ = 15;
+  private static final int yyntokens_ = 16;
 
   private static final int yyuser_token_number_max_ = 266;
   private static final int yyundef_token_ = 2;
@@ -1038,7 +1050,7 @@ public final class ApplicationParser
 
 
 /* Line 927 of lalr1.java  */
-/* Line 1042 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
+/* Line 1054 of "./../src/org/dflow/compiler/parser/ApplicationParser.java"  */
 
 }
 

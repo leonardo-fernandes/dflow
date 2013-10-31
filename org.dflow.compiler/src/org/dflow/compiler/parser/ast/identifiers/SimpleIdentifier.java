@@ -1,19 +1,13 @@
 package org.dflow.compiler.parser.ast.identifiers;
 
-public class SimpleIdentifier extends Identifier {
-	
-	private final String id;
+public class SimpleIdentifier extends CompoundIdentifier {
 	
 	public SimpleIdentifier(String id) {
-		this.id = id;
+		super(id, null);
 	}
 	
-	public String getId() {
-		return id;
-	}
-
 	@Override
 	public String toString() {
-		return getId();
+		return getPart();
 	}
 }

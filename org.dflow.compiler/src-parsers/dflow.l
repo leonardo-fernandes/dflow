@@ -61,7 +61,6 @@ LineTerminator = \r|\n|\r\n
 WhiteSpace = {LineTerminator} | [ \t]
 
 Identifier = [:jletter:][:jletterdigit:]*
-CompoundIdentifier = {Identifier} ( "." {Identifier} )*
 
 %%
 
@@ -74,7 +73,7 @@ CompoundIdentifier = {Identifier} ( "." {Identifier} )*
 	"application" { return APPLICATION; }
 	"entity"      { return ENTITY; }
 	"enum"        { return ENUM; }
-	{CompoundIdentifier}  { return ID; }
+	{Identifier}  { return ID; }
 
 	{WhiteSpace}  { /* ignore */ }
 	<<EOF>>       { return EOF; }

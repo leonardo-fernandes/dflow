@@ -3,18 +3,19 @@ package org.dflow.compiler.parser.ast.typereferences;
 import java.util.Arrays;
 
 import org.dflow.compiler.parser.ast.Node;
+import org.dflow.compiler.parser.ast.identifiers.CompoundIdentifier;
 import org.dflow.compiler.parser.ast.identifiers.Identifier;
 
 
 public class SimpleTypeReference extends TypeReference {
 	
-	private final Identifier id;
+	private final CompoundIdentifier id;
 	
-	public SimpleTypeReference(Identifier id) {
+	public SimpleTypeReference(CompoundIdentifier id) {
 		this.id = id;
 	}
 	
-	public Identifier getId() {
+	public CompoundIdentifier getId() {
 		return id;
 	}
 	

@@ -31,7 +31,7 @@ import org.dflow.compiler.parser.ast.typereferences.*;
 %type <PackageDeclaration> package_declaration
 %type <ImportDeclaration.Block> import_list
 %type <ImportDeclaration> import_declaration
-%type <Identifier> compound_identifier
+%type <CompoundIdentifier> compound_identifier
 %type <TypeReference> type_reference
 %type <GenericTypeReference.Arguments> generic_type_arguments
 %type <DflowFile> dflow_file
@@ -43,6 +43,7 @@ import org.dflow.compiler.parser.ast.typereferences.*;
 %type <Enumerate.Values> enum_values
 
 %start dflow_file
+%expect 1
 
 %%
 
@@ -54,7 +55,8 @@ import_list : /* empty */ { $$ = new ImportDeclaration.Block(); }
 import_declaration : IMPORT compound_identifier ';' { $$ = new ImportDeclaration($2); }
                    | IMPORT compound_identifier '.' '*' ';' { $$ = new ImportDeclaration($2, true); } ;
 
-compound_identifier : ID { $$ = new SimpleIdentifier($1); } ;
+compound_identifier : ID { $$ = new SimpleIdentifier($1); }
+                    | ID '.' compound_identifier { $$ = new CompoundIdentifier($1, $3); } ;
 
 type_reference : compound_identifier { $$ = new SimpleTypeReference($1); }
                | type_reference '[' ']' { $$ = new ArrayTypeReference($1); }
